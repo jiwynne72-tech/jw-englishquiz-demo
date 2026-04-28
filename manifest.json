@@ -1,6 +1,6 @@
 {
   "name": "Time to Quiz: English Games",
-  "short_name": "EngQuiz",
+  "short_name": "JW English",
   "description": "Interactive English games: The Wall, Connections, Chronology, and more.",
   "start_url": "./index.html",
   "display": "standalone",
