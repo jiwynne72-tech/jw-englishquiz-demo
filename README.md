@@ -41,3 +41,5 @@ This app is a **Progressive Web App**, meaning you can install it on your device
 
 ### 📝 License
 This project is for educational purposes. Feel free to use it to improve your English!
+
+© 2026 JAMES WYNNE - JW CONSULTING
