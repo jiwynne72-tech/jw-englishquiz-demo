@@ -1,5 +1,5 @@
 # Time to Quiz: English Games 🎓
-*SAMPLE VERSION FOR TESTIN*
+##SAMPLE VERSION FOR TESTING##
 **Time to Quiz** is an interactive Progressive Web App (PWA) designed to make learning English engaging and fun. It features five distinct game modes that test vocabulary, grammar, intuition, and cultural knowledge.
 
 ### 🚀 [Play the Game Now!](https://YOUR-USERNAME.github.io/YOUR-REPO-NAME/)
