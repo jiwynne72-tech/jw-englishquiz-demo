@@ -43,14 +43,35 @@ h1 {
   text-transform: uppercase;
   letter-spacing: -1px;
   text-shadow: var(--text-shadow);
+  color: #ffffff;
 }
 
 .subtitle {
   font-size: 1.2rem;
   font-weight: 300;
-  margin-bottom: 40px;
-  color: rgba(255, 255, 255, 0.8);
+  margin-bottom: 15px;
+  color: #ffffff;
   letter-spacing: 1px;
+}
+
+/* SAMPLE VERSION TEXT - WHITE, ITALIC, SMALL, NOT BOLD */
+.sample-notice {
+  font-size: 0.8rem;
+  font-style: italic;
+  font-weight: 400;
+  margin-bottom: 35px;
+  color: #ffffff;
+  max-width: 550px;
+  line-height: 1.5;
+}
+
+.sample-notice a {
+  color: #ffffff;
+  text-decoration: underline;
+}
+
+.sample-notice a:hover {
+  opacity: 0.7;
 }
 
 /* BUTTONS */
@@ -98,6 +119,7 @@ button:hover {
   min-height: 60px;
   transition: all 0.4s ease;
   box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.2);
+  color: #ffffff;
 }
 
 .tile:hover { background: rgba(255, 255, 255, 0.2); transform: scale(1.03); }
@@ -112,33 +134,43 @@ button:hover {
 .row { display: flex; justify-content: center; flex-wrap: wrap; gap: 20px; }
 
 /* TEXT ELEMENTS */
-.clue { font-size: 1.8rem; margin: 15px; font-weight: 700; background: rgba(255,255,255,0.1); padding: 15px 30px; border-radius: 15px; }
-.saying-text { font-size: 3.5rem; font-weight: 900; margin: 40px 0; letter-spacing: -1px; text-shadow: var(--text-shadow); }
-.date-clue { font-size: 5rem; font-weight: 900; margin-bottom: 30px; }
+.clue { font-size: 1.8rem; margin: 15px; font-weight: 700; background: rgba(255,255,255,0.1); padding: 15px 30px; border-radius: 15px; color: #ffffff; }
+.saying-text { font-size: 3.5rem; font-weight: 900; margin: 40px 0; letter-spacing: -1px; text-shadow: var(--text-shadow); color: #ffffff; }
+.date-clue { font-size: 5rem; font-weight: 900; margin-bottom: 30px; color: #ffffff; }
 .answer { margin: 30px 0; font-size: 1.8rem; color: #f1c40f; font-weight: 700; min-height: 40px; }
 
 .big-option { width: 280px; }
 .odd-tile { min-width: 180px; }
 
 #gameArea { width: 100%; max-width: 1000px; }
-    .footer {
-      position: fixed;
-      bottom: 0;
-      width: 100%;
-      background: #222;
-      color: white;
-      text-align: center;
-      padding: 4px;
-      font-size: 6px;
-    }
+
+.footer {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  background: rgba(0,0,0,0.3);
+  color: #ffffff;
+  text-align: center;
+  padding: 8px;
+  font-size: 10px;
+  backdrop-filter: blur(5px);
+}
+.footer a {
+  color: #ffffff;
+  text-decoration: underline;
+}
 </style>
 </head>
 <body class="bg-wall">
 
 <h1 id="title">TIME TO QUIZ</h1>
 <div id="subtitle" class="subtitle">
-  Learning English can be engaging, challenging, and genuinely fun.<br>
-  Explore five interactive games that test your intuition, accuracy, and understanding of the language.
+  Learning English can be engaging, challenging, and genuinely fun.
+</div>
+
+<div id="sampleInfo" class="sample-notice">
+  This is a sample version. The full version includes 10 full activities, over 800 questions, exercises, and more. 
+  <a href="mailto:james_wynne@hotmail.com">Contact me</a> if you wish to purchase.
 </div>
 
 <div id="gameContainer">
@@ -205,6 +237,7 @@ function showMenu(){
   document.body.className = "bg-wall";
   document.getElementById("title").innerText="English Games";
   document.getElementById("subtitle").innerText = "Get your thinking caps on!";
+  document.getElementById("sampleInfo").style.display = "block";
   document.getElementById("gameArea").innerHTML = "";
   document.getElementById("menu").innerHTML = `
     <button class="btn-wall" onclick="startGame('wall')">The Wall</button>
@@ -219,13 +252,13 @@ function startGame(type){
   playSound("click");
   document.getElementById("menu").innerHTML=""; 
   document.getElementById("gameArea").innerHTML="";
+  document.getElementById("sampleInfo").style.display = "none";
 
-  if(type==="wall") { document.body.className = "bg-wall"; document.getElementById("title").innerText="THE WALL"; document.getElementById("subtitle").innerText = "Find three connected groups of three words.\nNot every connection is as obvious as it seems.";
-loadWall(); }
+  if(type==="wall") { document.body.className = "bg-wall"; document.getElementById("title").innerText="THE WALL"; document.getElementById("subtitle").innerText = "Find three connected groups of three words."; loadWall(); }
   if(type==="connection") { document.body.className = "bg-connection"; document.getElementById("title").innerText="CONNECTIONS"; document.getElementById("subtitle").innerText = "What links these clues together?"; loadConnection(); }
   if(type==="date") { document.body.className = "bg-date"; document.getElementById("title").innerText="CHRONOLOGY"; document.getElementById("subtitle").innerText = "Here is a year. What happened?"; loadDate(); }
   if(type==="odd") { document.body.className = "bg-odd"; document.getElementById("title").innerText="ODD ONE OUT"; document.getElementById("subtitle").innerText = "One of these words needs to go home!"; loadOdd(); }
-  if(type==="sayings") { document.body.className = "bg-sayings"; document.getElementById("title").innerText="ENGLISH SAYINGS"; document.getElementById("subtitle").innerText = "What did you say?? English idioms to the test!"; loadSayings(); }
+  if(type==="sayings") { document.body.className = "bg-sayings"; document.getElementById("title").innerText="ENGLISH SAYINGS"; document.getElementById("subtitle").innerText = "English idioms to the test!"; loadSayings(); }
 }
 
 // GAME LOADERS
@@ -312,12 +345,14 @@ if ('serviceWorker' in navigator) {
   });
 }
 </script>
+
 <footer class="footer">
 <p>
   © 2026 James Wynne - 
-  <a href="mailto:jiwynne72@gmail.com" style="color:#06d6a0;">email</a> - 
-  <a href="https://jwynne.wixsite.com/english" style="color:#06d6a0;" target="_blank">website</a>
+  <a href="mailto:james_wynne@hotmail.com">email</a> - 
+  <a href="https://jwynne.wixsite.com/english" target="_blank">website</a>
 </p>
 </footer>
+
 </body>
 </html>
