@@ -37,7 +37,7 @@ body {
 .bg-sayings { background: linear-gradient(135deg, #41295a, #2f0743); }
 
 h1 {
-  margin-top: 20px;
+  margin-top: 40px;
   font-size: clamp(2rem, 5vw, 3.5rem);
   font-weight: 800;
   text-transform: uppercase;
@@ -54,7 +54,6 @@ h1 {
   letter-spacing: 1px;
 }
 
-/* SAMPLE VERSION TEXT - WHITE, ITALIC, SMALL, NOT BOLD */
 .sample-notice {
   font-size: 0.8rem;
   font-style: italic;
@@ -65,14 +64,7 @@ h1 {
   line-height: 1.5;
 }
 
-.sample-notice a {
-  color: #ffffff;
-  text-decoration: underline;
-}
-
-.sample-notice a:hover {
-  opacity: 0.7;
-}
+.sample-notice a { color: #ffffff; text-decoration: underline; }
 
 /* BUTTONS */
 button {
@@ -91,10 +83,7 @@ button {
   box-shadow: 0 4px 15px rgba(0,0,0,0.2);
 }
 
-button:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 8px 25px rgba(0,0,0,0.3);
-}
+button:hover { transform: translateY(-3px); box-shadow: 0 8px 25px rgba(0,0,0,0.3); }
 
 .btn-wall { background: rgba(52, 152, 219, 0.4); }
 .btn-connection { background: rgba(46, 204, 113, 0.4); }
@@ -103,70 +92,74 @@ button:hover {
 .btn-sayings { background: rgba(241, 196, 15, 0.4); }
 .btn-ui { background: rgba(255, 255, 255, 0.15); font-size: 12px; }
 
-/* TILES & CARDS */
-.tile {
-  padding: 25px 15px;
-  border-radius: 20px;
-  background: var(--glass);
-  backdrop-filter: blur(10px);
-  border: 1px solid var(--glass-border);
-  font-size: 1.1rem;
-  font-weight: 600;
-  cursor: pointer;
+/* WHATSAPP LOGO SECTION */
+.contact-section {
+  margin-top: 50px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
+
+.logo-wrapper {
+  position: relative;
+  display: inline-block;
+  transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.logo-wrapper:hover {
+  transform: scale(1.1);
+}
+
+.main-logo {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  object-fit: cover;
+  filter: invert(0.9) brightness(1.2);
+  transition: filter 0.3s ease;
+  border: 2px solid var(--glass-border);
+}
+
+.logo-wrapper:hover .main-logo {
+  filter: invert(0) brightness(1); /* Returns to original colors on hover */
+  border-color: #25d366;
+}
+
+.wa-badge {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  width: 32px;
+  height: 32px;
+  background: #25d366;
+  border-radius: 50%;
+  padding: 5px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.3);
   display: flex;
   align-items: center;
   justify-content: center;
-  min-height: 60px;
-  transition: all 0.4s ease;
-  box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.2);
-  color: #ffffff;
+  transition: transform 0.3s ease;
 }
 
+.logo-wrapper:hover .wa-badge {
+  transform: scale(1.2);
+}
+
+/* TILES & GAME AREA */
+.tile { padding: 25px 15px; border-radius: 20px; background: var(--glass); backdrop-filter: blur(10px); border: 1px solid var(--glass-border); font-size: 1.1rem; font-weight: 600; cursor: pointer; display: flex; align-items: center; justify-content: center; min-height: 60px; transition: all 0.4s ease; color: #ffffff; }
 .tile:hover { background: rgba(255, 255, 255, 0.2); transform: scale(1.03); }
-
-/* GAME STATES */
-.selected { background: #3498db !important; }
-.correct { background: #2ecc71 !important; }
-.wrong { background: #e74c3c !important; }
-
-/* LAYOUT */
 .grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; max-width: 700px; margin: 20px auto; }
 .row { display: flex; justify-content: center; flex-wrap: wrap; gap: 20px; }
-
-/* TEXT ELEMENTS */
-.clue { font-size: 1.8rem; margin: 15px; font-weight: 700; background: rgba(255,255,255,0.1); padding: 15px 30px; border-radius: 15px; color: #ffffff; }
-.saying-text { font-size: 3.5rem; font-weight: 900; margin: 40px 0; letter-spacing: -1px; text-shadow: var(--text-shadow); color: #ffffff; }
-.date-clue { font-size: 5rem; font-weight: 900; margin-bottom: 30px; color: #ffffff; }
 .answer { margin: 30px 0; font-size: 1.8rem; color: #f1c40f; font-weight: 700; min-height: 40px; }
 
-.big-option { width: 280px; }
-.odd-tile { min-width: 180px; }
-
-#gameArea { width: 100%; max-width: 1000px; }
-
-.footer {
-  position: fixed;
-  bottom: 0;
-  width: 100%;
-  background: rgba(0,0,0,0.3);
-  color: #ffffff;
-  text-align: center;
-  padding: 8px;
-  font-size: 10px;
-  backdrop-filter: blur(5px);
-}
-.footer a {
-  color: #ffffff;
-  text-decoration: underline;
-}
+.footer { position: fixed; bottom: 0; width: 100%; background: rgba(0,0,0,0.3); color: #ffffff; text-align: center; padding: 8px; font-size: 10px; backdrop-filter: blur(5px); }
 </style>
 </head>
 <body class="bg-wall">
 
 <h1 id="title">TIME TO QUIZ</h1>
-<div id="subtitle" class="subtitle">
-  Learning English can be engaging, challenging, and genuinely fun.
-</div>
+<div id="subtitle" class="subtitle">Learning English can be engaging, challenging, and genuinely fun.</div>
 
 <div id="sampleInfo" class="sample-notice">
   This is a sample version. The full version includes 10 full activities, over 800 questions, exercises, and more. 
@@ -180,6 +173,17 @@ button:hover {
         <button class="btn-date" onclick="startGame('date')">Chronology</button>
         <button class="btn-odd" onclick="startGame('odd')">Odd One Out</button>
         <button class="btn-sayings" onclick="startGame('sayings')">English Sayings</button>
+        
+        <div class="contact-section">
+            <a href="https://wa.link/sil3dz" target="_blank" class="logo-wrapper">
+                <img src="my logo en.jpg" alt="JW Logo" class="main-logo">
+                <div class="wa-badge">
+                    <svg viewBox="0 0 24 24" width="20" height="20" fill="white">
+                        <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L0 24l6.335-1.662c1.72.938 3.659 1.434 5.628 1.434h.011c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/>
+                    </svg>
+                </div>
+            </a>
+        </div>
     </div>
     <div id="gameArea"></div>
 </div>
@@ -195,7 +199,6 @@ function playSound(type){
   osc.stop(audioCtx.currentTime + 0.4);
 }
 
-// --- DATA ---
 const wallData = [
   { groups: [["look after","give up","find out"], ["money","price","cost"], ["quickly","slowly","carefully"]], labels: ["phrasal verbs","money","adverbs"] },
   { groups: [["cinema","theater","museum"], ["park","beach","forest"], ["bank","school","church"]], labels: ["cultural venues","nature spots","community buildings"] },
@@ -204,33 +207,23 @@ const wallData = [
 
 const connectionData = [
   { clues: ["You use them every day", "They help you communicate", "They change depending on context", "They can be formal or informal"], answer: "Language" },
-  { clues: ["It happens every 4 years", "Athletes from all over", "Gold, Silver, and Bronze", "The five rings"], answer: "The Olympic Games" },
-  { clues: ["It has a face", "It has two hands", "It doesn't have a body", "It tells you the time"], answer: "A Clock" },
-  { clues: ["It whistles but has no mouth", "It runs but has no legs", "You feel it but can't see it", "Moving air"], answer: "The Wind" }
+  { clues: ["It happens every 4 years", "Athletes from all over", "Gold, Silver, and Bronze", "The five rings"], answer: "The Olympic Games" }
 ];
 
 const dateData = [
-  { date: "1989", options: ["Fall of the Berlin Wall", "World War II begins", "First iPhone released"], answer: "Fall of the Berlin Wall" },
-  { date: "1969", options: ["Moon Landing", "First Airplane Flight", "End of WWI"], answer: "Moon Landing" },
-  { date: "1215", options: ["Magna Carta signed", "Marco Polo goes to China", "Crusades end"], answer: "Magna Carta signed" },
-  { date: "1963", options: ["JFK Assassination", "I Have a Dream speech", "Beatlemania begins"], answer: "I Have a Dream speech" }
+  { date: "1989", options: ["Fall of the Berlin Wall", "World War II begins", "First iPhone released"], answer: "Fall of the Berlin Wall" }
 ];
 
 const oddData = [
-  { options: ["Dog","Cat","Car","Horse"], answer: "Car" },
-  { options: ["Apple","Orange","Potato","Grape"], answer: "Potato" },
-  { options: ["First","Second","Third","One"], answer: "One" },
-  { options: ["Be","Have","Do","Go"], answer: "Go" }
+  { options: ["Dog","Cat","Car","Horse"], answer: "Car" }
 ];
 
 const sayingsData = [
-  { phrase: "Break the ice", meaning: "To start a conversation or socialize in a tense situation." },
-  { phrase: "Spill the beans", meaning: "To reveal a secret accidentally." },
-  { phrase: "Kick the bucket", meaning: "A humorous or informal way to say someone has died." },
-  { phrase: "Penny for your thoughts", meaning: "A way to ask someone what they are thinking about." }
+  { phrase: "Break the ice", meaning: "To start a conversation or socialize in a tense situation." }
 ];
 
-// --- LOGIC ---
+// Helper to keep the menu HTML string for non-reload switching
+const menuHTML = document.getElementById("menu").innerHTML;
 
 function showMenu(){
   playSound("click");
@@ -239,13 +232,7 @@ function showMenu(){
   document.getElementById("subtitle").innerText = "Get your thinking caps on!";
   document.getElementById("sampleInfo").style.display = "block";
   document.getElementById("gameArea").innerHTML = "";
-  document.getElementById("menu").innerHTML = `
-    <button class="btn-wall" onclick="startGame('wall')">The Wall</button>
-    <button class="btn-connection" onclick="startGame('connection')">Connections</button>
-    <button class="btn-date" onclick="startGame('date')">Chronology</button>
-    <button class="btn-odd" onclick="startGame('odd')">Odd One Out</button>
-    <button class="btn-sayings" onclick="startGame('sayings')">English Sayings</button>
-  `;
+  document.getElementById("menu").innerHTML = menuHTML;
 }
 
 function startGame(type){
@@ -254,14 +241,13 @@ function startGame(type){
   document.getElementById("gameArea").innerHTML="";
   document.getElementById("sampleInfo").style.display = "none";
 
-  if(type==="wall") { document.body.className = "bg-wall"; document.getElementById("title").innerText="THE WALL"; document.getElementById("subtitle").innerText = "Find three connected groups of three words."; loadWall(); }
-  if(type==="connection") { document.body.className = "bg-connection"; document.getElementById("title").innerText="CONNECTIONS"; document.getElementById("subtitle").innerText = "What links these clues together?"; loadConnection(); }
-  if(type==="date") { document.body.className = "bg-date"; document.getElementById("title").innerText="CHRONOLOGY"; document.getElementById("subtitle").innerText = "Here is a year. What happened?"; loadDate(); }
-  if(type==="odd") { document.body.className = "bg-odd"; document.getElementById("title").innerText="ODD ONE OUT"; document.getElementById("subtitle").innerText = "One of these words needs to go home!"; loadOdd(); }
-  if(type==="sayings") { document.body.className = "bg-sayings"; document.getElementById("title").innerText="ENGLISH SAYINGS"; document.getElementById("subtitle").innerText = "English idioms to the test!"; loadSayings(); }
+  if(type==="wall") { document.body.className = "bg-wall"; document.getElementById("title").innerText="THE WALL"; document.getElementById("subtitle").innerText = "Find three connected groups."; loadWall(); }
+  if(type==="connection") { document.body.className = "bg-connection"; document.getElementById("title").innerText="CONNECTIONS"; document.getElementById("subtitle").innerText = "What links these clues?"; loadConnection(); }
+  if(type==="date") { document.body.className = "bg-date"; document.getElementById("title").innerText="CHRONOLOGY"; document.getElementById("subtitle").innerText = "What happened this year?"; loadDate(); }
+  if(type==="odd") { document.body.className = "bg-odd"; document.getElementById("title").innerText="ODD ONE OUT"; document.getElementById("subtitle").innerText = "Spot the odd word!"; loadOdd(); }
+  if(type==="sayings") { document.body.className = "bg-sayings"; document.getElementById("title").innerText="ENGLISH SAYINGS"; document.getElementById("subtitle").innerText = "Idioms test!"; loadSayings(); }
 }
 
-// GAME LOADERS
 function loadWall(){
   let set = wallData[Math.floor(Math.random()*wallData.length)];
   let tiles = set.groups.flat().sort(()=>Math.random()-0.5);
@@ -336,22 +322,17 @@ function loadSayings(){
 
 function evalAns(el, choice, correct){ if(choice === correct) { playSound("correct"); el.classList.add("correct"); } else { playSound("wrong"); el.classList.add("wrong"); } }
 
-
 if ('serviceWorker' in navigator) {
   window.addEventListener('load', () => {
     navigator.serviceWorker.register('./sw.js')
       .then(reg => console.log('Service Worker Registered'))
-      .catch(err => console.error('Service Worker Registration Failed', err));
+      .catch(err => console.error('Service Worker Failed', err));
   });
 }
 </script>
 
 <footer class="footer">
-<p>
-  © 2026 James Wynne - 
-  <a href="mailto:james_wynne@hotmail.com">email</a> - 
-  <a href="https://jwynne.wixsite.com/english" target="_blank">website</a>
-</p>
+<p>© 2026 James Wynne - <a href="mailto:james_wynne@hotmail.com">email</a> - <a href="https://jwynne.wixsite.com/english" target="_blank">website</a></p>
 </footer>
 
 </body>
