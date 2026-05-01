@@ -468,5 +468,12 @@ function loadSayings(){
 <footer class="footer">
     © 2026 James Wynne | <a href="https://jwynne.wixsite.com/english" style="color:#00d2ff; text-decoration:none;" target="_blank">Official Site</a>
 </footer>
+
+<script>
+  if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.register('./sw.js')
+      .then(() => console.log("Service Worker Registered"));
+  }
+</script>
 </body>
 </html>
