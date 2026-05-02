@@ -37,6 +37,15 @@
             100% { background-position: 0% 50%; }
         }
 
+
+button:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    transform: none !important; /* Prevents hover jump */
+    box-shadow: none !important;
+}
+
+
 #musicBtn {
     background: rgba(255, 255, 255, 0.1);
     border: 1px solid var(--glass-border);
@@ -609,7 +618,7 @@ function revealConnection(isTimeUp = false) {
         ansDisplay.innerHTML = `<span style="color:#e74c3c">TIME'S UP!</span><br>
                                 <span style="color:#fff">${window.currentSet.answer}</span>`;
     } else {
-        ansDisplay.innerHTML = `<span style="color:#fff">Answer: ${window.currentSet.answer}</span>`;
+        ansDisplay.innerHTML = `<span style="color:#fff">${window.currentSet.answer}</span>`;
     }
 }
 
@@ -630,10 +639,13 @@ function loadOdd(){
     let set = oddData[Math.floor(Math.random()*oddData.length)];
     let opts = [...set.options].sort(()=>Math.random()-0.5);
     let html = `<div class="row-fixed">`;
+    // No changes to the tile generation
     opts.forEach(o => { html += `<div class="tile" onclick="evalAns(this,'${o.replace(/'/g,"\\'")}','${set.answer.replace(/'/g,"\\")}')">${o}</div>`; });
+    
     html += `</div>
         <div id="oddAns" class="answer"></div>
-        <button class="btn-odd" onclick="revealOdd('${set.answer.replace(/'/g,"\\'")}', '${set.reason.replace(/'/g,"\\'")}')">Answer & Explanation</button>
+        <!-- ADDED ID 'revealBtn' AND 'disabled' ATTRIBUTE BELOW -->
+        <button id="revealBtn" class="btn-odd" disabled onclick="revealOdd('${set.answer.replace(/'/g,"\\'")}', '${set.reason.replace(/'/g,"\\'")}')">Answer & Explanation</button>
         <br><br>
         <button class="btn-ui" onclick="startGame('odd')">Next Puzzle</button>
         <button class="btn-ui" onclick="showMenu()">⬅ Home</button>`;
@@ -647,8 +659,18 @@ function revealOdd(ans, reason){
 
 // COMMON HELPERS
 function evalAns(el, choice, correct){ 
-    if(choice === correct) { playSound("correct"); el.classList.add("correct"); } 
-    else { playSound("wrong"); el.classList.add("wrong"); } 
+    // Logic to enable the button if it exists
+    const revealBtn = document.getElementById("revealBtn");
+    if(revealBtn) revealBtn.disabled = false;
+
+    if(choice === correct) { 
+        playSound("correct"); 
+        el.classList.add("correct"); 
+    } 
+    else { 
+        playSound("wrong"); 
+        el.classList.add("wrong"); 
+    } 
 }
 
 // MINIMAL WALL / DATE / SAYINGS (To keep code clean but functional)
