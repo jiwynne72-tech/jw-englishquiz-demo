@@ -41,13 +41,15 @@
     background: rgba(255, 255, 255, 0.1);
     border: 1px solid var(--glass-border);
     border-radius: 50%;
-    width: 45px;
-    height: 45px;
+    width: 38px;  /* Smaller width */
+    height: 38px; /* Smaller height */
     display: flex;
     align-items: center;
     justify-content: center;
     cursor: pointer;
     transition: all 0.3s ease;
+    font-size: 14px; /* Smaller Icon */
+    margin: 0 auto;  /* Centers it */
 }
 
 .music-on {
@@ -285,13 +287,6 @@
     Your browser does not support the audio element.
 </audio>
 
-<!-- Toggle Button -->
-<div id="musicControls" style="position: fixed; top: 20px; right: 20px; z-index: 1000;">
-    <button id="musicBtn" class="btn-ui" onclick="toggleMusic()" style="font-size: 20px; padding: 10px;">
-        🔈
-    </button>
-</div>
-
 <h1 id="title">TIME TO QUIZ</h1>
 <div id="subtitle" class="subtitle">
     Interactive English learning games.
@@ -306,17 +301,21 @@
         <button class="btn-odd" onclick="startGame('odd')">Odd One Out</button>
         <button class="btn-sayings" onclick="startGame('sayings')">English Sayings</button>
         
-       <div class="home-footer-content">
+      <div class="home-footer-content">
     <a href="https://wa.me/00393515316723" target="_blank" class="logo-glow-link">
         <div class="wa-container">
-            <!-- Your Logo (The Base) -->
             <img src="logo.png" class="logo-small" alt="Logo">
-            <!-- WhatsApp Logo (The Overlay) -->
             <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" class="wa-icon" alt="WhatsApp">
         </div>
     </a>
     <a href="help.html" target="_blank" class="btn-dark">About this Game</a>
+    
+    <!-- ADD THIS BUTTON HERE -->
+    <button id="musicBtn" class="btn-ui" onclick="toggleMusic()" title="Play music" style="margin-top: 10px; width: 40px; height: 40px; font-size: 16px;">
+        🔇
+    </button>
 </div>
+    
     </div>
     <div id="gameArea"></div>
 </div>
@@ -365,23 +364,16 @@ function toggleMusic() {
         music.play().catch(error => {
             console.log("Playback failed. Interaction needed first.");
         });
-        btn.innerHTML = "🔊"; // Volume Up Icon
+        btn.innerHTML = "🔊"; // "On" Icon
+        btn.title = "Stop music"; // Update tooltip
         btn.classList.add("music-on");
     } else {
         music.pause();
-        btn.innerHTML = "🔈"; // Muted Icon
+        btn.innerHTML = "🔇"; // "Off" Icon
+        btn.title = "Play music"; // Reset tooltip
         btn.classList.remove("music-on");
     }
 }
-
-// Optional: Start music on the first game click if it's not already playing
-document.addEventListener('click', function() {
-    const music = document.getElementById("bgMusic");
-    // This ensures that as soon as they click "Start Game", music can play
-    if (music.paused && !window.musicStartedManually) {
-        // You could auto-play here, but usually, it's better to let the user toggle.
-    }
-}, { once: true });
 
 
 
@@ -482,25 +474,34 @@ function showMenu(){
     document.getElementById("subtitle").innerText = "Interactive English learning games.\nIntuition, accuracy, and logic.";
     document.getElementById("gameArea").innerHTML = "";
 
+    // UPDATE THIS SECTION BELOW
     document.getElementById("menu").innerHTML = `
         <button class="btn-wall" onclick="startGame('wall')">The Wall</button>
         <button class="btn-connection" onclick="startGame('connection')">Connections</button>
         <button class="btn-date" onclick="startGame('date')">Chronology</button>
         <button class="btn-odd" onclick="startGame('odd')">Odd One Out</button>
         <button class="btn-sayings" onclick="startGame('sayings')">English Sayings</button>
+        
         <div class="home-footer-content">
             <a href="https://wa.me/00393515316723" target="_blank" class="logo-glow-link">
                 <div class="wa-container">
-                    <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" class="wa-icon" alt="WhatsApp">
                     <img src="logo.png" class="logo-small" alt="Logo">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" class="wa-icon" alt="WhatsApp">
                 </div>
             </a>
             <a href="help.html" target="_blank" class="btn-dark">About this Game</a>
+            
+            <!-- ADDED THE MUSIC BUTTON BACK HERE -->
+            <button id="musicBtn" class="btn-ui" onclick="toggleMusic()" title="Toggle music" style="margin-top: 10px; width: 40px; height: 40px; font-size: 16px;">
+                ${document.getElementById("bgMusic").paused ? '🔇' : '🔊'}
+            </button>
         </div>
     `;
 }
 
 function startGame(type){
+    const music = document.getElementById("bgMusic");
+    if (!music.paused) toggleMusic();
     if(window.wallTimer) clearInterval(window.wallTimer);
     if(window.connTimer) clearInterval(window.connTimer);
     playSound("click");
