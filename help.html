@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Time to Quiz: English Games</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --glass-bg: rgba(255, 255, 255, 0.07);
+            --glass-border: rgba(255, 255, 255, 0.12);
+            --accent-color: #00f2fe;
+            --secondary-color: #a5f3fc;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Inter', sans-serif;
+            color: #f1f5f9;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            background: linear-gradient(-45deg, #020617, #0f172a, #1e1b4b, #111827);
+            background-size: 400% 400%;
+            animation: gradientBG 15s ease infinite;
+        }
+
+        @keyframes gradientBG {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 60px 20px;
+            padding: 60px;
+            background: var(--glass-bg);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid var(--glass-border);
+            border-radius: 40px;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+        }
+
+        header { text-align: center; margin-bottom: 50px; }
+
+        h1 {
+            font-weight: 800;
+            font-size: 3.5rem;
+            margin: 0;
+            background: linear-gradient(to bottom right, #ffffff, #94a3b8);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            filter: drop-shadow(0 2px 10px rgba(0,0,0,0.3));
+        }
+
+        h2 {
+            font-weight: 400;
+            letter-spacing: 8px;
+            font-size: 1.2rem;
+            margin-top: 15px;
+            color: var(--accent-color);
+            text-transform: uppercase;
+        }
+
+        h3 {
+            font-size: 1.8rem;
+            color: #fff;
+            margin-top: 50px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid var(--glass-border);
+        }
+
+        p { line-height: 1.9; color: #cbd5e1; font-size: 1.1rem; margin-bottom: 20px; }
+
+        a, a:visited { 
+            color: var(--accent-color) !important; 
+            text-decoration: none; 
+            transition: 0.3s;
+        }
+
+        a:hover { 
+            text-decoration: underline; 
+            filter: brightness(1.2);
+        }
+
+        .game-section { margin-top: 30px; }
+
+        .game-item {
+            margin-bottom: 35px;
+            padding: 30px;
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 24px;
+            border: 1px solid var(--glass-border);
+        }
+
+        .game-item strong {
+            display: block;
+            font-size: 1.4rem;
+            color: var(--secondary-color);
+            margin-bottom: 15px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .author-card {
+            background: linear-gradient(135deg, rgba(255,255,255,0.05) 0%, rgba(255,255,255,0.01) 100%);
+            padding: 40px;
+            border-radius: 30px;
+            border: 1px solid var(--glass-border);
+            margin-top: 30px;
+        }
+
+        .pwa-box {
+            background: rgba(0, 242, 254, 0.03);
+            border: 1px solid rgba(0, 242, 254, 0.2);
+            padding: 30px;
+            border-radius: 24px;
+        }
+
+        .tag-cloud {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin-top: 20px;
+            justify-content: center;
+        }
+
+        .tag {
+            background: rgba(255, 255, 255, 0.08);
+            padding: 8px 20px;
+            border-radius: 30px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: var(--accent-color);
+            border: 1px solid var(--glass-border);
+        }
+
+        footer {
+            margin-top: 80px;
+            text-align: center;
+            font-size: 0.95rem;
+            color: #94a3b8;
+            border-top: 1px solid var(--glass-border);
+            padding-top: 30px;
+        }
+
+        @media (max-width: 600px) {
+            .container { padding: 30px 20px; margin: 20px 10px; }
+            h1 { font-size: 2.4rem; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <header>
+        <h1>Time to Quiz: English Games 🎓</h1>
+        <h2>DEMO VERSION</h2>
+    </header>
+
+    <p>
+        <strong>Time to Quiz</strong> is a digital educational platform that re-imagines the iconic British passion for high-concept quizzing for the modern English classroom. The suite is inspired by the intellectual rigor and playful formats of legendary BBC programmes like <em>Only Connect</em>, <em>Mastermind</em>, and <em>Richard Osman’s House of Games</em>. Yes, that is the same Richard Osman who authored the <em>Thursday Murder Club</em> series. By bringing this spirit of deduction and lateral thinking to language acquisition, the app enhances conversation while enabling a fun atmosphere. Students can use is as a standalone app, but having a teacher as a moderator can really bring things life. After all, humans are important!
+    </p>
+
+    <section class="game-section">
+        <h3>🎮 Deep Dive into Game Modes</h3>
+        
+        <div class="game-item">
+            <strong>The Wall</strong>
+            Loosely based on the infamous Connecting Wall from <em>Only Connect</em>, this is the ultimate challenge for lateral thinkers. Players are presented with a sixteen-word grid and must identify four distinct groups of four words that share a hidden link. The difficulty lies in the "red herrings" where words could seemingly fit into multiple categories. This mode forces students to analyze synonyms, part-of-speech nuances, and cultural subtexts to find the only logically perfect solution.
+        </div>
+
+        <div class="game-item">
+            <strong>Connections</strong>
+            This mode tests a student's ability to synthesize information and recognize patterns. Players receive a sequence of four clues, moving from highly cryptic to increasingly obvious. The objective is to name the connection as early as possible. This encourages active listening and the use of context clues, mirroring the way native speakers process complex information in real-time.
+        </div>
+
+        <div class="game-item">
+            <strong>Chronology</strong>
+            Building on the "Answer-in-a-Year" style challenges, Chronology requires players to place historical, literary, and cultural events in their correct temporal order. By matching events to specific years, students practice numerical literacy in English while simultaneously building a broader understanding of the cultural history that shapes the language they are learning.
+        </div>
+
+        <div class="game-item">
+            <strong>Odd One Out</strong>
+            A staple of competitive British quizzing, this mode sharpens categorical precision. Students are shown a set of words or phrases and must pinpoint the outlier. Success requires more than just knowing a definition; it requires understanding semantic fields, grammatical properties, and phonetic similarities, making it an excellent tool for refining advanced vocabulary.
+        </div>
+
+        <div class="game-item">
+            <strong>English Sayings</strong>
+            Idioms and proverbs are often the final hurdle for language learners. This game focuses on the quirky, often confusing world of British and international English sayings. By gamifying these metaphors, players learn to recognize and use figurative language, allowing them to sound more natural and confident in professional and social settings.
+        </div>
+    </section>
+
+    <section>
+        <h3>📱 The PWA Advantage</h3>
+        <div class="pwa-box">
+            <p>
+                This application is a <strong>Progressive Web App</strong>, representing the cutting edge of web technology. It is designed to be installed directly on your device home screen without the friction of an App Store. Because it utilizes advanced Service Worker technology, it supports <strong>Offline Play</strong>, ensuring that the classroom experience remains uninterrupted even in areas with poor connectivity.
+            </p>
+            <p style="font-size: 0.95rem; background: rgba(0,0,0,0.2); padding: 15px; border-radius: 12px;">
+                <strong>iOS (Safari):</strong> Tap Share and select "Add to Home Screen."<br>
+                <strong>Android (Chrome):</strong> Tap the three-dot menu and select "Install app."<br>
+                <strong>Desktop:</strong> Click the "Install" prompt in the browser address bar.
+            </p>
+        </div>
+    </section>
+
+    <section>
+        <h3>👤 About the Author</h3>
+        <div class="author-card">
+            <p>
+                <strong>James Wynne</strong> is a multi-disciplinary professional with a career spanning over twenty years at the intersection of education and technology. Operating as a dedicated <strong>Teacher</strong> and <strong>Language Consultant</strong>, James has spent thousands of hours in the classroom, identifying the exact moments where traditional teaching methods fail to engage the modern learner.
+            </p>
+            <p>
+                Beyond the classroom, he is an accomplished <strong>Senior Technical Writer</strong>, ensuring that complex concepts are communicated with clarity and precision. He has done this in areas such as Finance, Investment Banking, Healthcare, Life Sciences, Cybersecurity, and many more. However, at his core, James is a lifelong <strong>Quizzer</strong>. He believes that the competitive, analytical nature of a good quiz is a great tool available for deep learning. <strong>Time to Quiz</strong> is the culmination of these roles, blending pedagogical theory with technical craftsmanship and a genuine love for the art of the question.
+            </p>
+            <p style="margin-top: 30px;">
+                🌐 <a href="https://jwynne.wixsite.com/english">Explore the Website</a> | 
+                ✉️ <a href="mailto:jiwynne72@gmail.com">Contact James</a>
+            </p>
+        </div>
+    </section>
+
+    <footer>
+        <p>
+            Developed for educational purposes. All rights reserved.<br>
+            <strong>&copy; 2026 JAMES WYNNE - JW CONSULTING</strong>
+        </p>
+    </footer>
+</div>
+
+</body>
+</html>
