@@ -37,6 +37,25 @@
             100% { background-position: 0% 50%; }
         }
 
+#musicBtn {
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid var(--glass-border);
+    border-radius: 50%;
+    width: 45px;
+    height: 45px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.music-on {
+    background: rgba(46, 204, 113, 0.3) !important; /* Green tint when playing */
+    box-shadow: 0 0 15px rgba(46, 204, 113, 0.4);
+}
+
+
 
 /* TIMER BAR STYLES */
 .timer-container {
@@ -114,14 +133,14 @@
 
         /* NEW BUTTONS AND LOGO */
         .btn-dark { 
-            background: rgba(0, 0, 0, 0.6); 
+            background: rgba(120, 120, 120, 0.4); 
             font-size: 11px; 
             padding: 8px 16px; 
             display: inline-block;
             text-decoration: none;
             color: white;
             border-radius: 12px;
-            border: 1px solid rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
             font-family: 'Montserrat', sans-serif;
             font-weight: 700;
             text-transform: uppercase;
@@ -239,22 +258,36 @@
        If the last row has only 1 tile, it spans the full width or 
        stays centered depending on your preference. 
        To keep it centered, we apply this to the container: */
-    #gameArea .grid {
-        display: flex;
-        flex-wrap: wrap;
-        justify-content: center;
+#gameArea .grid {
+        display: grid !important; /* Force grid instead of flex */
+        grid-template-columns: repeat(3, 1fr); /* Stay 3 columns */
+        justify-items: center; 
+        align-items: center;
+        width: 100%;
     }
 
-    /* Ensure tiles have a consistent width in the flex-wrap mobile view */
+    /* Adjust tile width for mobile grid */
     #gameArea .tile {
-        width: calc(33.33% - 10px);
-        margin: 5px;
-        min-width: 80px; /* Prevents tiles from getting too squashed */
+        width: 100%; /* Tiles fill the grid cell */
+        margin: 0;   /* Let the grid gap handle spacing */
     }
 }
     </style>
 </head>
 <body class="bg-menu">
+
+<!-- Background Music Element -->
+<audio id="bgMusic" loop>
+    <source src="music.mp3" type="audio/mpeg">
+    Your browser does not support the audio element.
+</audio>
+
+<!-- Toggle Button -->
+<div id="musicControls" style="position: fixed; top: 20px; right: 20px; z-index: 1000;">
+    <button id="musicBtn" class="btn-ui" onclick="toggleMusic()" style="font-size: 20px; padding: 10px;">
+        🔈
+    </button>
+</div>
 
 <h1 id="title">TIME TO QUIZ</h1>
 <div id="subtitle" class="subtitle">
@@ -289,10 +322,13 @@
 
 
 function revealWall() {
+    if(window.wallTimer) clearInterval(window.wallTimer);
     playSound("reveal");
     const colors = ['#2ecc71', '#3498db', '#9b59b2']; // Green, Blue, Purple
+    
     let html = `<div class="grid">`;
     
+    // Step 1: Just show the colored tiles
     window.currentWall.groups.forEach((group, index) => {
         group.forEach(word => {
             html += `<div class="tile" style="background:${colors[index]} !important; border:none;">${word}</div>`;
@@ -301,17 +337,66 @@ function revealWall() {
     
     html += `</div>`;
     
-    // Add the labels/categories below the grid
-    html += `<div style="margin-top:20px;">`;
+    // Step 2: Show the middle-man button
+    html += `<div id="connectionContainer" style="margin-top:20px;">
+                <button class="btn-wall" style="background:#f1c40f; color:#000;" onclick="revealLabels()">What Connects The Clues?</button>
+             </div>`;
+
+    // Step 3: Container for labels (initially empty)
+    html += `<div id="labelsArea" style="margin-top:20px;"></div>`;
+    
+    html += `<div id="navigationButtons" style="display:none; margin-top:20px;">
+                <button class="btn-ui" onclick="startGame('wall')">Next Puzzle</button>
+                <button class="btn-ui" onclick="showMenu()">⬅ Home</button>
+             </div>`;
+             
+    document.getElementById("gameArea").innerHTML = html;
+}
+
+
+function toggleMusic() {
+    const music = document.getElementById("bgMusic");
+    const btn = document.getElementById("musicBtn");
+
+    if (music.paused) {
+        music.play().catch(error => {
+            console.log("Playback failed. Interaction needed first.");
+        });
+        btn.innerHTML = "🔊"; // Volume Up Icon
+        btn.classList.add("music-on");
+    } else {
+        music.pause();
+        btn.innerHTML = "🔈"; // Muted Icon
+        btn.classList.remove("music-on");
+    }
+}
+
+// Optional: Start music on the first game click if it's not already playing
+document.addEventListener('click', function() {
+    const music = document.getElementById("bgMusic");
+    // This ensures that as soon as they click "Start Game", music can play
+    if (music.paused && !window.musicStartedManually) {
+        // You could auto-play here, but usually, it's better to let the user toggle.
+    }
+}, { once: true });
+
+
+
+function revealLabels() {
+    playSound("correct");
+    const colors = ['#2ecc71', '#3498db', '#9b59b2'];
+    let html = "";
+    
+    // Reveal the actual categories
     window.currentWall.labels.forEach((label, index) => {
         html += `<div class="clue" style="border-left-color:${colors[index]}"><strong>Group ${index + 1}:</strong> ${label}</div>`;
     });
-    html += `</div>`;
     
-    html += `<br><button class="btn-ui" onclick="startGame('wall')">Next Puzzle</button>
-             <button class="btn-ui" onclick="showMenu()">⬅ Home</button>`;
-             
-    document.getElementById("gameArea").innerHTML = html;
+    document.getElementById("labelsArea").innerHTML = html;
+    
+    // Hide the question button and show the Home/Next buttons
+    document.getElementById("connectionContainer").style.display = "none";
+    document.getElementById("navigationButtons").style.display = "block";
 }
 
 const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
@@ -355,7 +440,7 @@ const wallData = [
 ];
 
 const connectionData = [
-  { clues: ["You use them every day", "They help you communicate", "They change depending on context", "They can be formal or informal"], answer: "Language" },
+  { clues: ["You use it every day", "It helps you communicate", "It changes depending on context", "It can be formal or informal"], answer: "Language" },
   { clues: ["It happens every 4 years", "Athletes from all over", "Gold, Silver, and Bronze", "The five rings"], answer: "The Olympic Games" },
   { clues: ["It has a face", "It has two hands", "It doesn't have a body", "It tells you the time"], answer: "A Clock" },
   { clues: ["It whistles but has no mouth", "It runs but has no legs", "You feel it but can't see it", "Moving air"], answer: "The Wind" }
@@ -388,10 +473,12 @@ const sayingsData = [
 
 function showMenu(){
     if(window.wallTimer) clearInterval(window.wallTimer);
+    if(window.connTimer) clearInterval(window.connTimer);
     document.body.className = "bg-menu";
     document.getElementById("title").innerText="TIME TO QUIZ";
     document.getElementById("subtitle").innerText = "Interactive English learning games.\nIntuition, accuracy, and logic.";
     document.getElementById("gameArea").innerHTML = "";
+
     document.getElementById("menu").innerHTML = `
         <button class="btn-wall" onclick="startGame('wall')">The Wall</button>
         <button class="btn-connection" onclick="startGame('connection')">Connections</button>
@@ -412,6 +499,7 @@ function showMenu(){
 
 function startGame(type){
     if(window.wallTimer) clearInterval(window.wallTimer);
+    if(window.connTimer) clearInterval(window.connTimer);
     playSound("click");
     document.getElementById("menu").innerHTML=""; 
     document.getElementById("gameArea").innerHTML="";
@@ -453,31 +541,72 @@ function startGame(type){
 
 // CONNECTIONS SCORING LOGIC
 function loadConnection(){
-    // 1. Pick a puzzle that is different from the current one
     let newSet;
     do {
         newSet = connectionData[Math.floor(Math.random() * connectionData.length)];
     } while (newSet === window.currentSet && connectionData.length > 1);
 
-    // 2. Reset the game state
     window.clueIdx = 0; 
     window.currentSet = newSet;
     window.currentScore = 10;
+    window.connTimeLeft = 60; // Logic for the timer
 
-    // 3. Re-render the HTML (Notice clueBox is empty now)
     document.getElementById("gameArea").innerHTML = `
-        <div id="score" class="score-display">Potential Score: 10</div>
-        <div id="clueBox" style="min-height:180px"></div>
-        <button class="btn-connection" onclick="nextClue()">Next Clue</button>
-        <button class="btn-connection" onclick="revealConnection()">Show Answer</button>
-        <div id="cAns" class="answer"></div>
-        <div style="margin-top:10px">
-            <button class="btn-ui" onclick="startGame('connection')">Next Puzzle</button>
-            <button class="btn-ui" onclick="showMenu()">⬅ Home</button>
-        </div>`;
+    <div id="score" class="score-display">Potential Score: 10</div>
+    <div id="clueBox" style="min-height:180px"></div>
+    <button class="btn-connection" onclick="nextClue()">Next Clue</button>
+    <button class="btn-connection" onclick="revealConnection()">Show Answer</button>
+    <div id="cAns" class="answer"></div>
     
-    // 4. Load the very first clue of the new puzzle
+    <div class="timer-container">
+        <div id="connectionTimerBar" class="timer-bar" style="background: #2ecc71 !important; width: 100%;"></div>
+    </div>
+
+    <div style="margin-top:10px">
+        <button class="btn-ui" onclick="startGame('connection')">Next Puzzle</button>
+        <button class="btn-ui" onclick="showMenu()">⬅ Home</button>
+    </div>`;
+    
+    // START THE TIMER
+    if(window.connTimer) clearInterval(window.connTimer);
+    const connBar = document.getElementById("connectionTimerBar");
+    window.connTimer = setInterval(() => {
+        window.connTimeLeft--;
+        let percentage = (window.connTimeLeft / 60) * 100;
+        connBar.style.width = percentage + "%";
+        
+        if(window.connTimeLeft <= 0) {
+            clearInterval(window.connTimer);
+            revealConnection(true); 
+        }
+    }, 1000);
+
     nextClue();
+}
+
+
+function revealConnection(isTimeUp = false) {
+    // Stop the timer immediately
+    if(window.connTimer) clearInterval(window.connTimer);
+    playSound("reveal");
+
+    // 1. Calculate the final score
+    let timeBonus = Math.floor(window.connTimeLeft / 10);
+    let finalScore = isTimeUp ? 0 : (window.currentScore + timeBonus);
+
+    // 2. REPLACE the "Potential Score" with "Final Score"
+    const scoreDisplay = document.getElementById("score");
+    scoreDisplay.innerHTML = `Final Score: ${finalScore}`;
+    scoreDisplay.style.color = isTimeUp ? "#e74c3c" : "#2ecc71"; // Red if time up, Green if win
+
+    // 3. Show the answer in the answer box
+    const ansDisplay = document.getElementById("cAns");
+    if (isTimeUp) {
+        ansDisplay.innerHTML = `<span style="color:#e74c3c">TIME'S UP!</span><br>
+                                <span style="color:#fff">${window.currentSet.answer}</span>`;
+    } else {
+        ansDisplay.innerHTML = `<span style="color:#fff">Answer: ${window.currentSet.answer}</span>`;
+    }
 }
 
 function nextClue(){
@@ -490,11 +619,6 @@ function nextClue(){
         document.getElementById("clueBox").appendChild(div);
         window.clueIdx++;
     }
-}
-
-function revealConnection(){
-    playSound("reveal");
-    document.getElementById("cAns").innerText = window.currentSet.answer;
 }
 
 // ODD ONE OUT EXPLANATION LOGIC
