@@ -37,6 +37,25 @@
             100% { background-position: 0% 50%; }
         }
 
+
+/* TIMER BAR STYLES */
+.timer-container {
+    width: 100%;
+    max-width: 500px;
+    height: 8px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 4px;
+    margin: 15px auto;
+    overflow: hidden;
+}
+
+.timer-bar {
+    height: 100%;
+    width: 100%;
+    background: #3498db; 
+    transition: width 1s linear;
+}
+
         /* BACKGROUNDS */
         .bg-menu { background: linear-gradient(-45deg, #0f2027, #203a43, #2c5364, #0f2027); }
         .bg-wall { background: linear-gradient(-45deg, #141e30, #243b55, #2c5364, #141e30); }
@@ -368,6 +387,7 @@ const sayingsData = [
 ];
 
 function showMenu(){
+    if(window.wallTimer) clearInterval(window.wallTimer);
     document.body.className = "bg-menu";
     document.getElementById("title").innerText="TIME TO QUIZ";
     document.getElementById("subtitle").innerText = "Interactive English learning games.\nIntuition, accuracy, and logic.";
@@ -391,6 +411,7 @@ function showMenu(){
 }
 
 function startGame(type){
+    if(window.wallTimer) clearInterval(window.wallTimer);
     playSound("click");
     document.getElementById("menu").innerHTML=""; 
     document.getElementById("gameArea").innerHTML="";
@@ -504,7 +525,9 @@ function evalAns(el, choice, correct){
 
 // MINIMAL WALL / DATE / SAYINGS (To keep code clean but functional)
 function loadWall(){
-    // Pick a random set from wallData
+    // Clear existing timer if any
+    if(window.wallTimer) clearInterval(window.wallTimer);
+
     let set = wallData[Math.floor(Math.random() * wallData.length)]; 
     let tiles = set.groups.flat().sort(() => Math.random() - 0.5);
     
@@ -518,22 +541,60 @@ function loadWall(){
         <div style="margin-top:10px;">
             <button class="btn-ui" onclick="startGame('wall')">Next Wall</button>
             <button class="btn-ui" onclick="showMenu()">⬅ Home</button>
+        </div>
+        <!-- Progress Timer Bar -->
+        <div class="timer-container">
+            <div id="wallTimerBar" class="timer-bar"></div>
         </div>`;
         
     document.getElementById("gameArea").innerHTML = html; 
     window.currentWall = set; 
     window.selectedTiles = [];
+    
+    // Start Timer Logic (60 Seconds)
+    let timeLeft = 60;
+    const timerBar = document.getElementById("wallTimerBar");
+    window.wallTimer = setInterval(() => {
+        timeLeft--;
+        let percentage = (timeLeft / 60) * 100;
+        timerBar.style.width = percentage + "%";
+        
+        if(timeLeft <= 0) {
+            clearInterval(window.wallTimer);
+            revealWall(); // Auto-reveal when time is up
+        }
+    }, 1000);
 }
 
 function selectTile(el, word){ 
-    if(el.classList.contains("selected")){ el.classList.remove("selected"); window.selectedTiles = window.selectedTiles.filter(w=>w!==word); }
-    else if(window.selectedTiles.length < 3){ el.classList.add("selected"); window.selectedTiles.push(word); }
+    // Do nothing if the tile is already correctly solved
+    if(el.classList.contains("correct")) return;
+
+    if(el.classList.contains("selected")){ 
+        el.classList.remove("selected"); 
+        window.selectedTiles = window.selectedTiles.filter(w=>w!==word); 
+    }
+    else if(window.selectedTiles.length < 3){ 
+        el.classList.add("selected"); 
+        window.selectedTiles.push(word); 
+    }
 }
+
 function checkGroup(){
     let correct = window.currentWall.groups.find(g => g.every(w => window.selectedTiles.includes(w)));
-    if(correct) { playSound("correct"); document.querySelectorAll(".selected").forEach(t=>t.className="tile correct"); }
-    else { playSound("wrong"); document.querySelectorAll(".selected").forEach(t=>t.classList.remove("selected")); }
-    window.selectedTiles = [];
+    
+    if(correct) { 
+        playSound("correct"); 
+        // Turn selected tiles into 'correct' and remove 'selected' class
+        document.querySelectorAll(".selected").forEach(t => {
+            t.classList.remove("selected");
+            t.classList.add("correct");
+        });
+    } else { 
+        playSound("wrong"); 
+        document.querySelectorAll(".selected").forEach(t => t.classList.remove("selected")); 
+    }
+    window.selectedTiles = []; // Reset selection for the next group
 }
 function loadDate(){
     // Pick a random date from the array
