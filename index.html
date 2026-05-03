@@ -860,6 +860,37 @@ function loadSayings(){
 </footer>
 
 <script>
+
+let deferredPrompt;
+
+// 1. Listen for the browser's "ready to install" signal
+window.addEventListener('beforeinstallprompt', (e) => {
+    e.preventDefault();
+    deferredPrompt = e;
+    // Show the button if we are on the menu
+    const installBtn = document.getElementById('installBtn');
+    if (installBtn) installBtn.style.display = 'inline-block';
+});
+
+// 2. The function the button calls
+function triggerInstall() {
+    if (!deferredPrompt) return;
+    deferredPrompt.prompt();
+    deferredPrompt.userChoice.then((choiceResult) => {
+        deferredPrompt = null;
+        const installBtn = document.getElementById('installBtn');
+        if (installBtn) installBtn.style.display = 'none';
+    });
+}
+
+// 3. Listen for successful installation
+window.addEventListener('appinstalled', () => {
+    deferredPrompt = null;
+    const installBtn = document.getElementById('installBtn');
+    if (installBtn) installBtn.style.display = 'none';
+});
+
+
   if ('serviceWorker' in navigator) {
     navigator.serviceWorker.register('./sw.js')
       .then(() => console.log("Service Worker Registered"));
