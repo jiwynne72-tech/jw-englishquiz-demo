@@ -31,6 +31,13 @@
             animation: meshAnimation 15s ease infinite !important;
         }
 
+    button:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    transform: none !important; /* Prevents hover jump */
+    box-shadow: none !important;
+}
+
         @keyframes meshAnimation {
             0% { background-position: 0% 50%; }
             50% { background-position: 100% 50%; }
@@ -431,19 +438,59 @@ const wallData = [
   { groups: [["teacher","student","principal"],["pen","chalk","board"],["classroom","lesson","homework"]], labels: ["school roles","teaching tools","school context"] },
   { groups: [["raincoat","umbrella","boots"],["sunhat","sunglasses","shorts"],["scarf","gloves","coat"]], labels: ["rain gear","summer wear","winter wear"] },
   { groups: [["doctor","hospital","patient"],["chef","restaurant","menu"],["pilot","airport","flight"]], labels: ["medical","food service","aviation"] },
-    { groups: [["walk","hike","stroll"], ["yell","whisper","chat"], ["look","glance","stare"]], labels: ["ways to move","ways to speak","ways to see"] }
+  { groups: [["clef","staff","measure"], ["judge","jury","witness"], ["trunk","duffel","valise"]], labels: ["Music Notation","Trial Participants","Types of Baggage"] },
+  { groups: [["yen","euro","peso"], ["ounce","stone","gram"], ["kennel","manger","coop"]], labels: ["World Currencies","Units of Weight","Animal Enclosures"] },
+  { groups: [["apple","banana","orange"], ["table","chair","desk"], ["yellow","green","blue"]], labels: ["Fruits","Furniture","Colors"] },
+  { groups: [["milk","juice","water"], ["bread","rice","pasta"], ["cup","plate","bowl"]], labels: ["Drinks","Carbohydrates","Kitchenware"] },
+  { groups: [["cat","dog","rabbit"], ["lion","tiger","bear"], ["shirt","pants","jacket"]], labels: ["Pets","Wild Animals","Clothes"] },
+  { groups: [["run","walk","jump"], ["see","hear","smell"], ["pen","pencil","marker"]], labels: ["Actions/Verbs","Senses","Writing Tools"] },
+  { groups: [["sun","moon","star"], ["rain","snow","wind"], ["hot","cold","warm"]], labels: ["Space","Weather","Temperatures"] },
+  { groups: [["gale","zephyr","draft"], ["check","deposit","bank"], ["creek","brook","stream"]], labels: ["Types of Wind","Banking Terms","Small Waterways"] },
+  { groups: [["gavel","docket","brief"], ["racket","net","court"], ["volume","tempo","pitch"]], labels: ["Legal System","Tennis Elements","Musical Attributes"] },
+  { groups: [["woofer","tweeter","amp"], ["lectern","podium","rostrum"], ["iron","copper","lead"]], labels: ["Audio Equipment","Public Speaking","Base Metals"] },
+  { groups: [["doctor","nurse","dentist"], ["pilot","driver","captain"], ["head","arm","leg"]], labels: ["Medical Jobs","Transport Jobs","Body Parts"] },
+  { groups: [["piano","guitar","drums"], ["sad","happy","angry"], ["one","ten","hundred"]], labels: ["Instruments","Emotions","Numbers"] },
+  { groups: [["bus","train","plane"], ["car","bike","truck"], ["book","comic","novel"]], labels: ["Public Transport","Private Transport","Things to Read"] },
+  { groups: [["soccer","tennis","golf"], ["math","history","science"], ["winter","spring","summer"]], labels: ["Sports with Balls","School Subjects","Seasons"] },
+  { groups: [["father","sister","uncle"], ["chef","waiter","baker"], ["phone","laptop","tablet"]], labels: ["Family Members","Food Jobs","Technology"] },
+  { groups: [["stork","heron","egret"], ["hoist","derrick","lift"], ["emblem","crest","insignia"]], labels: ["Long-necked Birds","Lifting Machinery","Symbols of Authority"] },
+  { groups: [["badger","otter","shrew"], ["asset","handler","sleeper"], ["cursor","key","monitor"]], labels: ["Small Mammals","Espionage Terms","Computer Peripherals"] },
+  { groups: [["crate","bin","chest"], ["spar","jab","hook"], ["bangle","locket","pendant"]], labels: ["Storage Containers","Boxing Actions","Necklace/Arm Jewelry"] },
+  { groups: [["stern","hull","deck"], ["arrow","quiver","target"], ["bridge","fret","string"]], labels: ["Nautical Parts","Archery Equipment","Lute/Guitar Anatomy"] },
+  { groups: [["flint","tinder","wick"], ["bout","heat","fixture"], ["minute","era","decade"]], labels: ["Fire Starting","Sporting Events","Periods of Time"] },
+  { groups: [["walk","hike","stroll"], ["yell","whisper","chat"], ["look","glance","stare"]], labels: ["ways to move","ways to speak","ways to see"] }
 ];
 
 const connectionData = [
   { clues: ["You use it every day", "It helps you communicate", "It changes depending on context", "It can be formal or informal"], answer: "Language" },
   { clues: ["It happens every 4 years", "Athletes from all over", "Gold, Silver, and Bronze", "The five rings"], answer: "The Olympic Games" },
   { clues: ["It has a face", "It has two hands", "It doesn't have a body", "It tells you the time"], answer: "A Clock" },
+  { clues: ["It has a tongue but cannot speak", "It has a soul (sole) but no spirit", "It has eyes but cannot see", "You use it to go for a walk"], answer: "A Shoe" },
+  { clues: ["It can be broken without being touched", "You can keep it but you can't give it back", "If you share it, you have failed to keep it", "A spoken assurance or oath"], answer: "A Promise" },
+  { clues: ["It can be made, but never seen", "It can be caught, but never thrown", "It can be heard, but never touched", "A vibration that travels through the air"], answer: "Sound" },
+  { clues: ["It is tallest when it is young", "It gets shorter as it gets older", "It glows in the dark", "It provides light by melting"], answer: "A Candle" },
+  { clues: ["It has many keys but no locks", "It has a space but no room", "You can enter but you can never leave", "A device used for typing"], answer: "A Keyboard" },
+  { clues: ["It is always in front of you", "You can never catch up to it", "It is the day after today", "The future"], answer: "Tomorrow" },
+  { clues: ["It has cities but no houses", "It has mountains but no trees", "It has water but no fish", "A visual representation of an area"], answer: "A Map" },
+  { clues: ["It grows only downwards", "It is made of frozen water", "It hangs from the edge of a roof", "A spike of ice"], answer: "An Icicle" },
+  { clues: ["It travels around the world", "It stays in one corner", "It is needed to send a letter", "A small adhesive piece of paper"], answer: "A Postage Stamp" },
+  { clues: ["It has a spine but no bones", "It has leaves but no tree", "It has a cover but no bed", "Something you read"], answer: "A Book" },
   { clues: ["It whistles but has no mouth", "It runs but has no legs", "You feel it but can't see it", "Moving air"], answer: "The Wind" }
 ];
 
 const dateData = [
   { date: "1989", options: ["Fall of the Berlin Wall", "World War II begins", "First iPhone released"], answer: "Fall of the Berlin Wall" },
   { date: "1969", options: ["Moon Landing", "First Airplane Flight", "End of WWI"], answer: "Moon Landing" },
+  { date: "1912", options: ["Sinking of the Titanic", "Discovery of America", "First Man in Space"], answer: "Sinking of the Titanic" },
+  { date: "2007", options: ["First iPhone released", "Start of the Internet", "Fall of the Berlin Wall"], answer: "First iPhone released" },
+  { date: "1945", options: ["End of World War II", "Start of the French Revolution", "Invention of the Telephone"], answer: "End of World War II" },
+  { date: "1876", options: ["Invention of the Telephone", "First Wright Brothers Flight", "Discovery of Penicillin"], answer: "Invention of the Telephone" },
+  { date: "1903", options: ["First Airplane Flight", "First Steam Engine", "End of the Vietnam War"], answer: "First Airplane Flight" },
+  { date: "1928", options: ["Discovery of Penicillin", "Invention of the Lightbulb", "First Walk on the Moon"], answer: "Discovery of Penicillin" },
+  { date: "1789", options: ["French Revolution begins", "American Civil War", "World War I begins"], answer: "French Revolution begins" },
+  { date: "1991", options: ["End of the Soviet Union", "Invention of the Radio", "First Olympic Games"], answer: "End of the Soviet Union" },
+  { date: "1885", options: ["First Modern Car", "First Laptop Computer", "Discovery of Australia"], answer: "First Modern Car" },
+  { date: "1953", options: ["DNA Structure Discovered", "Invention of Printing Press", "First Social Media Site"], answer: "DNA Structure Discovered" },
   { date: "1492", options: ["Columbus reaches America", "French Revolution", "Black Death ends"], answer: "Columbus reaches America" },
   { date: "1914", options: ["Start of WWI", "Start of WWII", "Vietnam War begins"], answer: "Start of WWI" },
   { date: "1963", options: ["JFK Assassination", "Birth of George Clooney", "Sandro Pertini is President"], answer: "JFK Assassination" }
@@ -452,6 +499,16 @@ const dateData = [
 const oddData = [
     { options: ["Be","Have","Do","Go"], answer: "Go", reason: "The others are auxiliary verbs." },
     { options: ["Bridge","Tunnel","Road","Harbour"], answer: "Harbour", reason: "The others are land transport structures." },
+    { options: ["Speak","Write","Listen","Read"], answer: "Listen", reason: "The others are 'productive' skills (you produce language), while listening is 'receptive'." },
+    { options: ["Happiness","Sadness","Angry","Excitement"], answer: "Angry", reason: "The others are nouns; 'Angry' is an adjective." },
+    { options: ["Beautifully","Slowly","Quickly","Friendly"], answer: "Friendly", reason: "The others are adverbs; 'Friendly' is an adjective." },
+    { options: ["Table","Desk","Wardrobe","Kitchen"], answer: "Kitchen", reason: "The others are pieces of furniture; a kitchen is a room." },
+    { options: ["Teacher","Doctor","Student","Lawyer"], answer: "Student", reason: "The others are professions/jobs; a student is a learner." },
+    { options: ["Bought","Caught","Taught","Walked"], answer: "Walked", reason: "The others are irregular verbs; 'Walked' is a regular verb." },
+    { options: ["Always","Usually","Sometimes","Tomorrow"], answer: "Tomorrow", reason: "The others are adverbs of frequency; 'Tomorrow' is an adverb of time." },
+    { options: ["See","Look","Watch","Hear"], answer: "Hear", reason: "The others are related to the sense of sight; 'Hear' is related to sound." },
+    { options: ["Paris","London","Italy","Tokyo"], answer: "Italy", reason: "The others are cities; Italy is a country." },
+    { options: ["Must","Can","Should","Want"], answer: "Want", reason: "The others are modal verbs; 'Want' is a main verb." },
     { options: ["Whale","Bat","Penguin","Human"], answer: "Penguin", reason: "The others are mammals; a penguin is a bird." },
     { options: ["Salt","Sugar","Vinegar","Lemon"], answer: "Sugar", reason: "The others are used for savory or sour seasoning." },
     { options: ["Glass","Ice","Steam","Water"], answer: "Glass", reason: "The others are states of H2O." },
@@ -463,6 +520,16 @@ const sayingsData = [
   { phrase: "Spill the beans", meaning: "To reveal a secret accidentally." },
   { phrase: "Kick the bucket", meaning: "A humorous or informal way to say someone has died." },
   { phrase: "Hit the sack", meaning: "To go to bed or go to sleep." },
+  { phrase: "Piece of cake", meaning: "Something that is very easy to do." },
+  { phrase: "Under the weather", meaning: "Feeling sick or not well." },
+  { phrase: "Break a leg", meaning: "A superstitious way to say 'good luck', usually to a performer." },
+  { phrase: "Once in a blue moon", meaning: "Something that happens very rarely." },
+  { phrase: "Costs an arm and a leg", meaning: "Something that is very expensive." },
+  { phrase: "Let the cat out of the bag", meaning: "To accidentally reveal a secret." },
+  { phrase: "Bite off more than you can chew", meaning: "To take on a task that is way too big or difficult." },
+  { phrase: "When pigs fly", meaning: "Something that will never happen; an impossibility." },
+  { phrase: "The last straw", meaning: "The final problem in a series of problems that makes you lose your patience." },
+  { phrase: "In the same boat", meaning: "To be in the same difficult situation as someone else." },
   { phrase: "Penny for your thoughts", meaning: "A way to ask someone what they are thinking about." }
 ];
 
@@ -609,7 +676,7 @@ function revealConnection(isTimeUp = false) {
         ansDisplay.innerHTML = `<span style="color:#e74c3c">TIME'S UP!</span><br>
                                 <span style="color:#fff">${window.currentSet.answer}</span>`;
     } else {
-        ansDisplay.innerHTML = `<span style="color:#fff">Answer: ${window.currentSet.answer}</span>`;
+        ansDisplay.innerHTML = `<span style="color:#fff">${window.currentSet.answer}</span>`;
     }
 }
 
@@ -630,10 +697,12 @@ function loadOdd(){
     let set = oddData[Math.floor(Math.random()*oddData.length)];
     let opts = [...set.options].sort(()=>Math.random()-0.5);
     let html = `<div class="row-fixed">`;
+    // We pass 'this' to evalAns so the function knows which tile was clicked
     opts.forEach(o => { html += `<div class="tile" onclick="evalAns(this,'${o.replace(/'/g,"\\'")}','${set.answer.replace(/'/g,"\\")}')">${o}</div>`; });
     html += `</div>
         <div id="oddAns" class="answer"></div>
-        <button class="btn-odd" onclick="revealOdd('${set.answer.replace(/'/g,"\\'")}', '${set.reason.replace(/'/g,"\\'")}')">Answer & Explanation</button>
+        <!-- Added id="revealBtn" and disabled attribute -->
+        <button id="revealBtn" class="btn-odd" disabled onclick="revealOdd('${set.answer.replace(/'/g,"\\'")}', '${set.reason.replace(/'/g,"\\'")}')">Answer & Explanation</button>
         <br><br>
         <button class="btn-ui" onclick="startGame('odd')">Next Puzzle</button>
         <button class="btn-ui" onclick="showMenu()">⬅ Home</button>`;
@@ -642,13 +711,26 @@ function loadOdd(){
 
 function revealOdd(ans, reason){
     playSound("reveal");
-    document.getElementById("oddAns").innerHTML = `<span style="color:#fff; font-size:1.6rem; font-weight:800">Answer: ${ans}</span><br><small style="font-size:1.1rem; font-weight:400; opacity:0.9;">${reason}</small>`;
+    document.getElementById("oddAns").innerHTML = `<span style="color:#fff; font-size:1.6rem; font-weight:800">${ans}</span><br><small style="font-size:1.1rem; font-weight:400; opacity:0.9;">${reason}</small>`;
 }
 
 // COMMON HELPERS
 function evalAns(el, choice, correct){ 
-    if(choice === correct) { playSound("correct"); el.classList.add("correct"); } 
-    else { playSound("wrong"); el.classList.add("wrong"); } 
+    if(choice === correct) { 
+        playSound("correct"); 
+        el.classList.add("correct"); 
+    } else { 
+        playSound("wrong"); 
+        el.classList.add("wrong"); 
+    } 
+
+    // Enable the "Answer & Explanation" button if it exists on screen
+    const revealBtn = document.getElementById("revealBtn");
+    if(revealBtn) {
+        revealBtn.disabled = false;
+        revealBtn.style.opacity = "1"; // Optional: ensures it looks active
+        revealBtn.style.cursor = "pointer";
+    }
 }
 
 // MINIMAL WALL / DATE / SAYINGS (To keep code clean but functional)
