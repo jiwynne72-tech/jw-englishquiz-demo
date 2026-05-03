@@ -548,11 +548,6 @@ function showMenu(){
         <button class="btn-odd" onclick="startGame('odd')">Odd One Out</button>
         <button class="btn-sayings" onclick="startGame('sayings')">English Sayings</button>
         
-        <!-- THE MISSING INSTALL BUTTON -->
-        <button id="installBtn" class="btn-ui" style="display:none; background:#2ecc71; margin-top:10px; width: auto;" onclick="triggerInstall()">
-            📥 INSTALL APP
-        </button>
-        
         <div class="home-footer-content">
             <a href="https://wa.me/00393515316723" target="_blank" class="logo-glow-link">
                 <div class="wa-container">
@@ -562,13 +557,17 @@ function showMenu(){
             </a>
             <a href="help.html" target="_blank" class="btn-dark">About this Game</a>
             
+            <!-- MOVED INSTALL BUTTON HERE -->
+            <button id="installBtn" class="btn-ui" style="display:none; background:#2ecc71; margin-top:5px; width: auto; font-size: 12px; padding: 10px 20px;" onclick="triggerInstall()">
+                📥 INSTALL APP
+            </button>
+            
             <button id="musicBtn" class="btn-ui" onclick="toggleMusic()" title="Toggle music" style="margin-top: 10px; width: 40px; height: 40px; font-size: 16px;">
                 ${document.getElementById("bgMusic").paused ? '🔇' : '🔊'}
             </button>
         </div>
     `;
 
-    // CRITICAL: Re-show the button if the browser is already holding the prompt
     if (deferredPrompt) {
         document.getElementById('installBtn').style.display = 'inline-block';
     }
