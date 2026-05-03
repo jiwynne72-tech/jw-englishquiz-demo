@@ -541,13 +541,17 @@ function showMenu(){
     document.getElementById("subtitle").innerText = "Interactive English learning games.\nIntuition, accuracy, and logic.";
     document.getElementById("gameArea").innerHTML = "";
 
-    // UPDATE THIS SECTION BELOW
     document.getElementById("menu").innerHTML = `
         <button class="btn-wall" onclick="startGame('wall')">The Wall</button>
         <button class="btn-connection" onclick="startGame('connection')">Connections</button>
         <button class="btn-date" onclick="startGame('date')">Chronology</button>
         <button class="btn-odd" onclick="startGame('odd')">Odd One Out</button>
         <button class="btn-sayings" onclick="startGame('sayings')">English Sayings</button>
+        
+        <!-- THE MISSING INSTALL BUTTON -->
+        <button id="installBtn" class="btn-ui" style="display:none; background:#2ecc71; margin-top:10px; width: auto;" onclick="triggerInstall()">
+            📥 INSTALL APP
+        </button>
         
         <div class="home-footer-content">
             <a href="https://wa.me/00393515316723" target="_blank" class="logo-glow-link">
@@ -558,13 +562,20 @@ function showMenu(){
             </a>
             <a href="help.html" target="_blank" class="btn-dark">About this Game</a>
             
-            <!-- ADDED THE MUSIC BUTTON BACK HERE -->
             <button id="musicBtn" class="btn-ui" onclick="toggleMusic()" title="Toggle music" style="margin-top: 10px; width: 40px; height: 40px; font-size: 16px;">
                 ${document.getElementById("bgMusic").paused ? '🔇' : '🔊'}
             </button>
         </div>
     `;
+
+    // CRITICAL: Re-show the button if the browser is already holding the prompt
+    if (deferredPrompt) {
+        document.getElementById('installBtn').style.display = 'inline-block';
+    }
 }
+
+
+
 
 function startGame(type){
     const music = document.getElementById("bgMusic");
