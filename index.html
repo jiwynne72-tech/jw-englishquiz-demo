@@ -31,6 +31,17 @@
             animation: meshAnimation 15s ease infinite !important;
         }
 
+
+.demo-note {
+    font-size: 11px;
+    color: rgba(255, 255, 255, 0.7);
+    max-width: 280px;
+    line-height: 1.4;
+    margin-top: 15px;
+    font-style: italic;
+}
+
+
     button:disabled {
     opacity: 0.5;
     cursor: not-allowed;
@@ -321,6 +332,13 @@
     <button id="musicBtn" class="btn-ui" onclick="toggleMusic()" title="Play music" style="margin-top: 10px; width: 40px; height: 40px; font-size: 16px;">
         🔇
     </button>
+
+<div class="demo-note">
+                This is a <strong>Demo Edition</strong>. The full version includes many more activities such as Conditionals, True or False, Reading Comprehension, The Big Wall, Correction Center, Who Am I?... and much more! <br><strong>Contact me for info.</strong>
+            </div>
+        </div>
+    </div>
+    <div id="gameArea"></div>
 </div>
     
     </div>
@@ -557,7 +575,6 @@ function showMenu(){
             </a>
             <a href="help.html" target="_blank" class="btn-dark">About this Game</a>
             
-            <!-- MOVED INSTALL BUTTON HERE -->
             <button id="installBtn" class="btn-ui" style="display:none; background:#2ecc71; margin-top:5px; width: auto; font-size: 12px; padding: 10px 20px;" onclick="triggerInstall()">
                 📥 INSTALL APP
             </button>
@@ -565,6 +582,11 @@ function showMenu(){
             <button id="musicBtn" class="btn-ui" onclick="toggleMusic()" title="Toggle music" style="margin-top: 10px; width: 40px; height: 40px; font-size: 16px;">
                 ${document.getElementById("bgMusic").paused ? '🔇' : '🔊'}
             </button>
+
+            <!-- NEW DEMO NOTE SECTION -->
+            <div class="demo-note">
+                This is a <strong>Demo Edition</strong>. The full version includes many more activities such as Conditionals, True or False, Reading Comprehension, The Big Wall, Correction Center, Who Am I?... and much more! <br><strong>Contact me for info.</strong>
+            </div>
         </div>
     `;
 
