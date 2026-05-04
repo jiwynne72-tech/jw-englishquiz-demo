@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Time to Quiz: Imparare l'Inglese Giocando</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --glass-bg: rgba(255, 255, 255, 0.07);
+            --glass-border: rgba(255, 255, 255, 0.12);
+            --accent-color: #00f2fe;
+            --secondary-color: #a5f3fc;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Inter', sans-serif;
+            color: #f1f5f9;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            background: linear-gradient(-45deg, #020617, #0f172a, #1e1b4b, #111827);
+            background-size: 400% 400%;
+            animation: gradientBG 15s ease infinite;
+            font-size: 0.95rem;
+        }
+
+        @keyframes gradientBG {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        .container {
+            max-width: 850px;
+            margin: 40px 20px;
+            padding: 45px;
+            background: var(--glass-bg);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid var(--glass-border);
+            border-radius: 35px;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+        }
+
+        .nav-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+        }
+
+        .logo {
+            width: 90px;
+            height: 90px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 2px solid var(--glass-border);
+        }
+
+        header { text-align: center; margin-bottom: 40px; }
+
+        h1 {
+            font-weight: 800;
+            font-size: 2.6rem;
+            margin: 0;
+            background: linear-gradient(to bottom right, #ffffff, #94a3b8);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        h2 {
+            font-weight: 400;
+            letter-spacing: 6px;
+            font-size: 0.9rem;
+            margin-top: 10px;
+            color: var(--accent-color);
+            text-transform: uppercase;
+        }
+
+        h3 {
+            font-size: 1.5rem;
+            color: #fff;
+            margin-top: 45px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid var(--glass-border);
+        }
+
+        p { line-height: 1.7; color: #cbd5e1; margin-bottom: 15px; }
+
+        .back-link {
+            color: var(--accent-color) !important;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            transition: 0.3s;
+        }
+
+        .back-link:hover { opacity: 0.8; text-decoration: underline; }
+
+        .game-section {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .game-item {
+            padding: 25px;
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 20px;
+            border: 1px solid var(--glass-border);
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+
+        .game-item strong {
+            display: block;
+            font-size: 1.15rem;
+            color: var(--secondary-color);
+            margin-bottom: 10px;
+            text-transform: uppercase;
+            letter-spacing: 1.2px;
+        }
+
+        .author-card {
+            background: linear-gradient(135deg, rgba(255,255,255,0.05) 0%, rgba(255,255,255,0.01) 100%);
+            padding: 35px;
+            border-radius: 25px;
+            border: 1px solid var(--glass-border);
+            margin-top: 30px;
+            font-size: 0.9rem;
+            overflow: hidden;
+        }
+
+        .portrait {
+            width: 120px;
+            height: 120px;
+            float: right;
+            margin: 0 0 15px 25px;
+            border-radius: 50%;
+            border: 1px solid var(--glass-border);
+            opacity: 0.8;
+            mix-blend-mode: luminosity;
+            filter: contrast(1.1);
+        }
+
+        footer {
+            margin-top: 60px;
+            text-align: center;
+            font-size: 0.8rem;
+            color: #94a3b8;
+            border-top: 1px solid var(--glass-border);
+            padding-top: 25px;
+        }
+
+        @media (max-width: 600px) {
+            .container { padding: 30px 20px; }
+            h1 { font-size: 2rem; }
+            .nav-header { flex-direction: column-reverse; gap: 20px; }
+            .portrait { float: none; display: block; margin: 0 auto 20px auto; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="nav-header">
+        <a href="index.html" class="back-link">← Torna al Menu</a>
+        <img src="logo.png" alt="Logo" class="logo">
+    </div>
+
+    <header>
+        <h1>Time to Quiz: English Challenges 🎓</h1>
+        <h2>Sfida il tuo Inglese</h2>
+    </header>
+
+    <p>
+        <strong>Time to Quiz</strong> è un campo di addestramento linguistico digitale che trasforma l'iconica passione britannica per i quiz in uno strumento per la classe moderna e i singoli studenti. Mi sono ispirato al rigore intellettuale di programmi BBC come <em>Only Connect</em> e <em>Mastermind</em>, portando la deduzione e il pensiero laterale nell'apprendimento dell'inglese.
+    </p>
+
+    <p>
+        <strong>Perché punto sulle sfide?</strong> Il punto fermo rimane che imparare una lingua richiede studio e dedizione, ma il divertimento è il catalizzatore fondamentale per sbloccare il potenziale dello studente. Quando ci si mette in gioco, l'ansia da prestazione svanisce e la memoria si attiva in modo più profondo, trasformando ogni risposta in un traguardo cognitivo.
+    </p>
+
+    <section class="game-section">
+        <h3>🚀 I Vantaggi per lo Studente</h3>
+        
+        <div class="game-item">
+            <strong>Coinvolgimento Attivo</strong>
+            Non sei più un ascoltatore passivo: diventi il protagonista della sfida. Ogni tile e ogni domanda richiedono attenzione costante e rapidità, mantenendo alta la concentrazione.
+        </div>
+
+        <div class="game-item">
+            <strong>Sicurezza Linguistica</strong>
+            Il formato del quiz permette di sbagliare e riprovare senza timori. Questo approccio riduce il blocco del parlatore, permettendoti di sperimentare con vocaboli e strutture in un ambiente protetto e stimolante.
+        </div>
+
+        <div class="game-item">
+            <strong>Pensiero in Lingua</strong>
+            Le nostre sfide non testano solo la memoria, ma la logica. Imparerai a trovare collegamenti e risolvere enigmi direttamente in inglese, allenando il cervello a elaborare concetti complessi senza tradurre mentalmente.
+        </div>
+
+        <div class="game-item">
+            <strong>Cultura e Idiomi</strong>
+            Scopri il lato autentico dell'inglese attraverso i modi di dire e i riferimenti culturali britannici. È il modo più rapido e divertente per smettere di suonare come un libro di testo e iniziare a parlare come un madrelingua.
+        </div>
+    </section>
+
+
+
+<section class="game-section">
+        <h3>🎮 Le Modalità di Gioco</h3>
+        
+        <div class="game-item">
+            <strong>The Wall (Il Muro)</strong>
+            Metti alla prova il tuo pensiero laterale. Trova i collegamenti nascosti tra 9 parole per dividerle in 3 gruppi tematici. Attenzione ai "depistaggi": alcune parole sembrano appartenere a più gruppi!
+        </div>
+
+        <div class="game-item">
+            <strong>Connections (Collegamenti)</strong>
+            Ricevi fino a 4 indizi, dal più difficile al più semplice. L'obiettivo è indovinare il nesso logico il prima possibile. Ottimo per allenare l'ascolto attivo e l'intuito.
+        </div>
+
+        <div class="game-item">
+            <strong>Chronology (Cronologia)</strong>
+            Associa eventi storici, letterari o culturali all'anno corretto. Questa sfida ti aiuta a familiarizzare con i numeri e le date in inglese mentre espandi la tua cultura generale.
+        </div>
+
+        <div class="game-item">
+            <strong>Odd One Out (L'Intruso)</strong>
+            Analizza un gruppo di parole e identifica quella che non c'entra. Ti costringe a riflettere su categorie grammaticali, sinonimi e sottili sfumature di significato.
+        </div>
+
+        <div class="game-item">
+            <strong>English Sayings (Modi di Dire)</strong>
+            Impara il significato degli idiomi e dei proverbi britannici. È il modo più efficace per superare il linguaggio dei libri di testo e padroneggiare l'inglese parlato nel mondo reale.
+        </div>
+    </section>
+
+
+
+    <section>
+        <h3>👤 L'Autore</h3>
+        <div class="author-card">
+            <img src="profile_jw.png" alt="James Wynne Portrait" class="portrait">
+            <p>
+                <strong>James Wynne</strong> è un insegnante e consulente linguistico con oltre vent'anni di esperienza tra educazione e tecnologia. Ha trascorso migliaia di ore in aula studiando i metodi migliori per coinvolgere lo studente moderno.
+            </p>
+            <p>
+                Già <strong>Senior Technical Writer</strong> in ambiti critici come la Cybersecurity, James crede fermamente che la sfida analitica di un buon quiz sia il miglior strumento per un apprendimento duraturo. <strong>Time to Quiz</strong> è la sintesi della sua visione: trasformare lo studio dell'inglese in un'esperienza viva e appassionante.
+            </p>
+            <p style="margin-top: 25px; clear: both;">
+                🌐 <a href="https://jwynne.wixsite.com/english" style="color: var(--accent-color); text-decoration: none;">Visita il Sito</a> | 
+                ✉️ <a href="mailto:jiwynne72@gmail.com" style="color: var(--accent-color); text-decoration: none;">Contatta James</a>
+            </p>
+        </div>
+    </section>
+
+    <footer>
+        <p>
+            Sviluppato per scopi educativi. La sfida è il miglior modo per imparare.<br>
+            <strong>&copy; 2026 JAMES WYNNE - GAME MUSIC BY JAMES WYNNE © 2011 SONY MUSIC PUBLISHING</strong>
+        </p>
+    </footer>
+</div>
+
+</body>
+</html>
