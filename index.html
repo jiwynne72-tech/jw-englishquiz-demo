@@ -319,16 +319,21 @@
         <button class="btn-odd" onclick="startGame('odd')">Odd One Out</button>
         <button class="btn-sayings" onclick="startGame('sayings')">English Sayings</button>
         
-      <div class="home-footer-content">
+ <div class="home-footer-content">
     <a href="https://wa.me/393515316723" target="_blank" class="logo-glow-link">
         <div class="wa-container">
             <img src="logo.png" class="logo-small" alt="Logo">
             <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" class="wa-icon" alt="WhatsApp">
         </div>
     </a>
-    <a href="help.html" target="_blank" class="btn-dark">About this Game</a>
+    <a href="help.html" target="_blank" class="btn-dark">INSTRUCTIONS</a>
     
-    <!-- ADD THIS BUTTON HERE -->
+    <!-- SUBTLE ITALIAN LINK -->
+    <a href="https://jiwynne72-tech.github.io/english_games_italian/" 
+       style="font-size: 10px; text-decoration: none; color: rgba(255,255,255,0.4); font-family: 'Montserrat', sans-serif; letter-spacing: 1px; margin-top: -5px; text-transform: uppercase;">
+       Versione Italiana
+    </a>
+
     <button id="musicBtn" class="btn-ui" onclick="toggleMusic()" title="Play music" style="margin-top: 10px; width: 40px; height: 40px; font-size: 16px;">
         🔇
     </button>
@@ -573,16 +578,34 @@ function showMenu(){
                     <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" class="wa-icon" alt="WhatsApp">
                 </div>
             </a>
-            <a href="help.html" target="_blank" class="btn-dark">About this Game</a>
-            
-            <button id="installBtn" class="btn-ui" style="display:none; background:#2ecc71; margin-top:5px; width: auto; font-size: 12px; padding: 10px 20px;" onclick="triggerInstall()">
-                📥 INSTALL APP
-            </button>
-            
-            <button id="musicBtn" class="btn-ui" onclick="toggleMusic()" title="Toggle music" style="margin-top: 10px; width: 40px; height: 40px; font-size: 16px;">
-                ${document.getElementById("bgMusic").paused ? '🔇' : '🔊'}
-            </button>
-
+            <a href="help.html" // Find this section inside showMenu()
+document.getElementById("menu").innerHTML = `
+    <button class="btn-wall" onclick="startGame('wall')">The Wall</button>
+    <button class="btn-connection" onclick="startGame('connection')">Connections</button>
+    <button class="btn-date" onclick="startGame('date')">Chronology</button>
+    <button class="btn-odd" onclick="startGame('odd')">Odd One Out</button>
+    <button class="btn-sayings" onclick="startGame('sayings')">English Sayings</button>
+    
+    <div class="home-footer-content">
+        <a href="https://wa.me/393515316723" target="_blank" class="logo-glow-link">
+            <div class="wa-container">
+                <img src="logo.png" class="logo-small" alt="Logo">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" class="wa-icon" alt="WhatsApp">
+            </div>
+        </a>
+        <a href="help.html" target="_blank" class="btn-dark">INSTRUCTIONS</a>
+        
+        <!-- PASTE THE LINK HERE TOO -->
+        <a href="https://jiwynne72-tech.github.io/english_games_italian/" 
+           style="font-size: 10px; text-decoration: none; color: rgba(255,255,255,0.4); font-family: 'Montserrat', sans-serif; letter-spacing: 1px; margin-top: -5px; text-transform: uppercase;">
+           Versione Italiana
+        </a>
+        
+        <button id="installBtn" class="btn-ui" style="display:none; background:#2ecc71; margin-top:5px; width: auto; font-size: 12px; padding: 10px 20px;" onclick="triggerInstall()">
+            📥 INSTALL APP
+        </button>
+        ...
+`;
             <!-- NEW DEMO NOTE SECTION -->
             <div class="demo-note">
                 This is a <strong>Demo Edition</strong>. The full version includes many more activities such as Conditionals, True or False, Reading Comprehension, The Big Wall, Correction Center, Who Am I?... and much more! <br><strong>Contact me for info.</strong>
