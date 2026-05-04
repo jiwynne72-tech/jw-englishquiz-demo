@@ -272,6 +272,7 @@
     /* For the "Odd One Out" or 2-column layouts */
     .row-fixed { 
         grid-template-columns: repeat(2, 1fr); 
+}
        #musicControls {
         top: 10px !important;
         right: 10px !important;
@@ -342,10 +343,6 @@
                 This is a <strong>Demo Edition</strong>. The full version includes many more activities such as Conditionals, True or False, Reading Comprehension, The Big Wall, Correction Center, Who Am I?... and much more! <br><strong>Contact me for info.</strong>
             </div>
         </div>
-    </div>
-    <div id="gameArea"></div>
-</div>
-    
     </div>
     <div id="gameArea"></div>
 </div>
@@ -557,13 +554,17 @@ const sayingsData = [
 ];
 
 function showMenu(){
+    // Stop any active game timers
     if(window.wallTimer) clearInterval(window.wallTimer);
     if(window.connTimer) clearInterval(window.connTimer);
+
+    // Reset the visual theme and text
     document.body.className = "bg-menu";
     document.getElementById("title").innerText="TIME TO QUIZ";
-    document.getElementById("subtitle").innerText = "Interactive English learning games.\nIntuition, accuracy, and logic.";
+    document.getElementById("subtitle").innerText = "Interactive English learning games.\nLanguage, intuition, and logic.";
     document.getElementById("gameArea").innerHTML = "";
 
+    // The entire menu HTML is wrapped in one set of backticks
     document.getElementById("menu").innerHTML = `
         <button class="btn-wall" onclick="startGame('wall')">The Wall</button>
         <button class="btn-connection" onclick="startGame('connection')">Connections</button>
@@ -578,41 +579,28 @@ function showMenu(){
                     <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" class="wa-icon" alt="WhatsApp">
                 </div>
             </a>
-            <a href="help.html" // Find this section inside showMenu()
-document.getElementById("menu").innerHTML = `
-    <button class="btn-wall" onclick="startGame('wall')">The Wall</button>
-    <button class="btn-connection" onclick="startGame('connection')">Connections</button>
-    <button class="btn-date" onclick="startGame('date')">Chronology</button>
-    <button class="btn-odd" onclick="startGame('odd')">Odd One Out</button>
-    <button class="btn-sayings" onclick="startGame('sayings')">English Sayings</button>
-    
-    <div class="home-footer-content">
-        <a href="https://wa.me/393515316723" target="_blank" class="logo-glow-link">
-            <div class="wa-container">
-                <img src="logo.png" class="logo-small" alt="Logo">
-                <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" class="wa-icon" alt="WhatsApp">
-            </div>
-        </a>
-        <a href="help.html" target="_blank" class="btn-dark">INSTRUCTIONS</a>
-        
-        <!-- PASTE THE LINK HERE TOO -->
-        <a href="https://jiwynne72-tech.github.io/english_games_italian/" 
-           style="font-size: 10px; text-decoration: none; color: rgba(255,255,255,0.4); font-family: 'Montserrat', sans-serif; letter-spacing: 1px; margin-top: -5px; text-transform: uppercase;">
-           Versione Italiana
-        </a>
-        
-        <button id="installBtn" class="btn-ui" style="display:none; background:#2ecc71; margin-top:5px; width: auto; font-size: 12px; padding: 10px 20px;" onclick="triggerInstall()">
-            📥 INSTALL APP
-        </button>
-        ...
-`;
-            <!-- NEW DEMO NOTE SECTION -->
+            <a href="help.html" target="_blank" class="btn-dark">INSTRUCTIONS</a>
+            
+            <a href="https://jiwynne72-tech.github.io/english_games_italian/" 
+               style="font-size: 10px; text-decoration: none; color: rgba(255,255,255,0.4); font-family: 'Montserrat', sans-serif; letter-spacing: 1px; margin-top: -5px; text-transform: uppercase;">
+               Versione Italiana
+            </a>
+
+            <button id="installBtn" class="btn-ui" style="display:none; background:#2ecc71; margin-top:5px; width: auto; font-size: 12px; padding: 10px 20px;" onclick="triggerInstall()">
+                📥 INSTALL APP
+            </button>
+
+            <button id="musicBtn" class="btn-ui" onclick="toggleMusic()" title="Play music" style="margin-top: 10px; width: 40px; height: 40px; font-size: 16px;">
+                🔇
+            </button>
+
             <div class="demo-note">
                 This is a <strong>Demo Edition</strong>. The full version includes many more activities such as Conditionals, True or False, Reading Comprehension, The Big Wall, Correction Center, Who Am I?... and much more! <br><strong>Contact me for info.</strong>
             </div>
         </div>
     `;
 
+    // Re-check if the Install Button should be visible
     if (deferredPrompt) {
         document.getElementById('installBtn').style.display = 'inline-block';
     }
@@ -753,7 +741,9 @@ function loadOdd(){
     let opts = [...set.options].sort(()=>Math.random()-0.5);
     let html = `<div class="row-fixed">`;
     // We pass 'this' to evalAns so the function knows which tile was clicked
-    opts.forEach(o => { html += `<div class="tile" onclick="evalAns(this,'${o.replace(/'/g,"\\'")}','${set.answer.replace(/'/g,"\\")}')">${o}</div>`; });
+    opts.forEach(o => { 
+    html += `<div class="tile" onclick="evalAns(this,'${o.replace(/'/g,"\\'")}','${set.answer.replace(/'/g,"\\' text-decoration: none;")}')">${o}</div>`; 
+});
     html += `</div>
         <div id="oddAns" class="answer"></div>
         <!-- Added id="revealBtn" and disabled attribute -->
@@ -796,7 +786,7 @@ function loadWall(){
     let tiles = set.groups.flat().sort(() => Math.random() - 0.5);
     
     let html = `<div class="grid">`;
-    tiles.forEach(t => { html += `<div class="tile" onclick="selectTile(this,'${t.replace(/'/g,"\\")}')">${t}</div>`; });
+    tiles.forEach(t => { html += `<div class="tile" onclick="selectTile(this,'${t.replace(/'/g,"\\'")}')">${t}</div>`; });
     html += `</div>
         <div style="margin-top:10px;">
         <button class="btn-wall" style="background:rgba(255,255,255,0.2)" onclick="revealWall()">Reveal All</button>
@@ -836,7 +826,8 @@ function loadWall(){
             document.getElementById("title").innerText = "TIME EXPIRED";
         }
     }, 1000);
-} // Added missing closing brace here
+} 
+
 
 function selectTile(el, word){ 
     // Prevent selection if time is up or already solved
@@ -896,7 +887,7 @@ function loadDate(){
     
     shuffledOptions.forEach(o => { 
         // We escape apostrophes to prevent JavaScript errors in names/titles
-        html += `<div class="tile" onclick="evalAns(this,'${o.replace(/'/g,"\\'")}','${set.answer.replace(/'/g,"\\")}')">${o}</div>`; 
+        html += `<div class="tile" onclick="evalAns(this,'${o.replace(/'/g,"\\'")}','${set.answer.replace(/'/g,"\\'")}')">${o}</div>`; 
     });
 
     html += `</div>
