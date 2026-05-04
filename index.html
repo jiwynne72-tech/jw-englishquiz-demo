@@ -567,7 +567,7 @@ function showMenu(){
         <button class="btn-sayings" onclick="startGame('sayings')">English Sayings</button>
         
         <div class="home-footer-content">
-            <a href="https://wa.me/00393515316723" target="_blank" class="logo-glow-link">
+            <a href="https://wa.me/393515316723" target="_blank" class="logo-glow-link">
                 <div class="wa-container">
                     <img src="logo.png" class="logo-small" alt="Logo">
                     <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" class="wa-icon" alt="WhatsApp">
@@ -767,33 +767,36 @@ function evalAns(el, choice, correct){
 
 // MINIMAL WALL / DATE / SAYINGS (To keep code clean but functional)
 function loadWall(){
-    // Clear existing timer if any
     if(window.wallTimer) clearInterval(window.wallTimer);
 
     let set = wallData[Math.floor(Math.random() * wallData.length)]; 
     let tiles = set.groups.flat().sort(() => Math.random() - 0.5);
     
     let html = `<div class="grid">`;
-    tiles.forEach(t => { html += `<div class="tile" onclick="selectTile(this,'${t}')">${t}</div>`; });
+    tiles.forEach(t => { html += `<div class="tile" onclick="selectTile(this,'${t.replace(/'/g,"\\")}')">${t}</div>`; });
     html += `</div>
         <div style="margin-top:10px;">
-            <button class="btn-wall" onclick="checkGroup()">Check Group</button>
-            <button class="btn-wall" style="background:rgba(255,255,255,0.2)" onclick="revealWall()">Reveal All</button>
+        <button class="btn-wall" style="background:rgba(255,255,255,0.2)" onclick="revealWall()">Reveal All</button>
         </div>
         <div style="margin-top:10px;">
             <button class="btn-ui" onclick="startGame('wall')">Next Wall</button>
             <button class="btn-ui" onclick="showMenu()">⬅ Home</button>
         </div>
+        
         <!-- Progress Timer Bar -->
         <div class="timer-container">
             <div id="wallTimerBar" class="timer-bar"></div>
+        </div>
+        
+        <!-- NEW TEXT PLACEMENT -->
+        <div style="margin-top: 10px; font-style: italic; font-size: 0.9rem; color: rgba(255,255,255,0.7);">
+            Too easy? Too difficult? Click "Next" for a new wall...
         </div>`;
         
     document.getElementById("gameArea").innerHTML = html; 
     window.currentWall = set; 
     window.selectedTiles = [];
     
-    // Start Timer Logic (60 Seconds)
     let timeLeft = 60;
     const timerBar = document.getElementById("wallTimerBar");
     window.wallTimer = setInterval(() => {
@@ -803,41 +806,60 @@ function loadWall(){
         
         if(timeLeft <= 0) {
             clearInterval(window.wallTimer);
-            revealWall(); // Auto-reveal when time is up
+            document.querySelectorAll(".tile").forEach(t => {
+                t.style.pointerEvents = "none"; 
+                t.style.opacity = "0.7";
+            });
+            document.getElementById("title").innerText = "TIME EXPIRED";
         }
     }, 1000);
-}
+} // Added missing closing brace here
 
 function selectTile(el, word){ 
-    // Do nothing if the tile is already correctly solved
-    if(el.classList.contains("correct")) return;
+    // Prevent selection if time is up or already solved
+    if(document.getElementById("wallTimerBar") && 
+       document.getElementById("wallTimerBar").style.width === "0%") return;
+    if(el.classList.contains("correct") || el.classList.contains("wrong") || el.classList.contains("selected")) return;
 
-    if(el.classList.contains("selected")){ 
-        el.classList.remove("selected"); 
-        window.selectedTiles = window.selectedTiles.filter(w=>w!==word); 
-    }
-    else if(window.selectedTiles.length < 3){ 
+    if(window.selectedTiles.length < 3){ 
         el.classList.add("selected"); 
         window.selectedTiles.push(word); 
+        
+        if(window.selectedTiles.length === 3) {
+            checkWallGroup();
+        }
     }
 }
 
-function checkGroup(){
+function checkWallGroup(){
     let correct = window.currentWall.groups.find(g => g.every(w => window.selectedTiles.includes(w)));
-    
+    let selectedElements = document.querySelectorAll(".selected");
+
     if(correct) { 
         playSound("correct"); 
-        // Turn selected tiles into 'correct' and remove 'selected' class
-        document.querySelectorAll(".selected").forEach(t => {
+        selectedElements.forEach(t => {
             t.classList.remove("selected");
             t.classList.add("correct");
         });
+        window.selectedTiles = []; 
     } else { 
         playSound("wrong"); 
-        document.querySelectorAll(".selected").forEach(t => t.classList.remove("selected")); 
+        // Briefly turn red
+        selectedElements.forEach(t => {
+            t.classList.remove("selected");
+            t.classList.add("wrong");
+        });
+
+        // Remove red after 500ms so user can continue
+        setTimeout(() => {
+            document.querySelectorAll(".wrong").forEach(t => {
+                t.classList.remove("wrong");
+            });
+            window.selectedTiles = []; 
+        }, 500); 
     }
-    window.selectedTiles = []; // Reset selection for the next group
 }
+
 function loadDate(){
     // Pick a random date from the array
     let set = dateData[Math.floor(Math.random() * dateData.length)];
