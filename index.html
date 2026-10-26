@@ -578,11 +578,972 @@ function showMenu(){
                 </div>
             </a>
             <a href="help.html" target="_blank" class="btn-dark">INSTRUCTIONS</a>
+            <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JW English Games - Demo Edition</title>
+    <link rel="manifest" href="manifest.json">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&family=Montserrat:wght@700&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --glass: rgba(255, 255, 255, 0.1);
+            --glass-border: rgba(255, 255, 255, 0.2);
+        }
+
+        * { box-sizing: border-box; }
+
+        body {
+            font-family: 'Outfit', sans-serif;
+            text-align: center;
+            color: #fff;
+            margin: 0;
+            padding: 10px; /* Tightened padding */
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            overflow-x: hidden;
+            transition: background 1.2s ease-in-out;
+            background-size: 400% 400% !important;
+            animation: meshAnimation 15s ease infinite !important;
+        }
+
+
+.demo-note {
+    font-size: 11px;
+    color: rgba(255, 255, 255, 0.7);
+    max-width: 280px;
+    line-height: 1.4;
+    margin-top: 15px;
+    font-style: italic;
+}
+
+
+    button:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    transform: none !important; /* Prevents hover jump */
+    box-shadow: none !important;
+}
+
+        @keyframes meshAnimation {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+#musicBtn {
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid var(--glass-border);
+    border-radius: 50%;
+    width: 38px;  /* Smaller width */
+    height: 38px; /* Smaller height */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-size: 14px; /* Smaller Icon */
+    margin: 0 auto;  /* Centers it */
+}
+
+.music-on {
+    background: rgba(46, 204, 113, 0.3) !important; /* Green tint when playing */
+    box-shadow: 0 0 15px rgba(46, 204, 113, 0.4);
+}
+
+
+
+/* TIMER BAR STYLES */
+.timer-container {
+    width: 100%;
+    max-width: 500px;
+    height: 8px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 4px;
+    margin: 15px auto;
+    overflow: hidden;
+}
+
+.timer-bar {
+    height: 100%;
+    width: 100%;
+    background: #3498db; 
+    transition: width 1s linear;
+}
+
+        /* BACKGROUNDS */
+        .bg-menu { background: linear-gradient(-45deg, #0f2027, #203a43, #2c5364, #0f2027); }
+        .bg-wall { background: linear-gradient(-45deg, #141e30, #243b55, #2c5364, #141e30); }
+        .bg-connection { background: linear-gradient(-45deg, #134e5e, #1c3e35, #2c5364, #134e5e); }
+        .bg-date { background: linear-gradient(-45deg, #1a2a6c, #2a4858, #3a7bd5, #1a2a6c); }
+        .bg-odd { background: linear-gradient(-45deg, #09203f, #134e5e, #2b5876, #09203f); }
+        .bg-sayings { background: linear-gradient(-45deg, #2c2201, #41295a, #2f0743, #2c2201); }
+
+        h1 {
+            margin-top: 20px; /* Reduced space */
+            font-family: 'Montserrat', sans-serif;
+            font-size: clamp(2rem, 6vw, 3.2rem);
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: -1px;
+            margin-bottom: 5px;
+            background: linear-gradient(to bottom, #fff, #bdc3c7);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+.subtitle {
+    font-size: 1rem;
+    max-width: 700px;
+    margin-bottom: 25px;
+    color: #eee;
+    line-height: 1.4;
+    white-space: pre-line;
+    font-weight: 600; /* This makes the subtitle bold */
+}
+
+        /* COMPACT BUTTONS */
+        button {
+            font-family: 'Montserrat', sans-serif;
+            padding: 12px 24px;
+            margin: 6px;
+            font-size: 13px;
+            font-weight: 700;
+            text-transform: uppercase;
+            cursor: pointer;
+            border-radius: 12px;
+            border: 1px solid var(--glass-border);
+            color: white;
+            backdrop-filter: blur(10px);
+            transition: all 0.2s ease;
+        }
+
+        button:hover { transform: translateY(-2px); box-shadow: 0 8px 15px rgba(0,0,0,0.3); }
+
+        .btn-wall { background: rgba(52, 152, 219, 0.4); }
+        .btn-connection { background: rgba(46, 204, 113, 0.4); }
+        .btn-date { background: rgba(155, 89, 182, 0.4); }
+        .btn-odd { background: rgba(150, 40, 40, 0.45); }
+        .btn-sayings { background: rgba(241, 196, 15, 0.4); }
+        .btn-ui { background: rgba(255, 255, 255, 0.1); font-size: 10px; padding: 8px 16px; }
+
+        /* NEW BUTTONS AND LOGO */
+        .btn-dark { 
+            background: rgba(120, 120, 120, 0.4); 
+            font-size: 11px; 
+            padding: 8px 16px; 
+            display: inline-block;
+            text-decoration: none;
+            color: white;
+            border-radius: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 700;
+            text-transform: uppercase;
+            margin-top: 15px;
+        }
+
+        .home-footer-content {
+            margin-top: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .logo-glow-link {
+            display: inline-block;
+            text-decoration: none;
+            transition: transform 0.3s ease;
+        }
+
+        .logo-glow-link:hover { transform: scale(1.05); }
+
+.logo-small {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    border-radius: 50%;
+    /* Keep your existing glow animation */
+    filter: drop-shadow(0 0 10px rgba(255, 255, 255, 0.5));
+    animation: logoGlow 3s ease-in-out infinite alternate;
+}
+
+.wa-container {
+    position: relative; /* Necessary to anchor the overlapping icon */
+    display: inline-block;
+    width: 90px; /* Adjust based on desired logo size */
+    height: 90px;
+    background: transparent; /* Ensures it matches the page background */
+    border: none;
+    padding: 0;
+}
+       .wa-icon {
+    position: absolute;
+    bottom: 2px;   /* Positions it at the bottom */
+    right: 2px;    /* Positions it at the right */
+    width: 20px;   /* Increased size for better visibility */
+    height: 20px;
+    z-index: 2;    /* Forces it to stay on top */
+    background: white; /* Optional: adds a tiny white circle behind WA logo for contrast */
+    border-radius: 50%;
+    padding: 2px;
+}
+
+        /* TIGHTER TILES */
+        .tile {
+            padding: 15px 10px;
+            border-radius: 18px;
+            background: var(--glass);
+            border: 1px solid var(--glass-border);
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 60px;
+            transition: all 0.2s;
+        }
+
+        .selected { background: #3498db !important; }
+        .correct { background: #2ecc71 !important; }
+        .wrong { background: #e67e22 !important; }
+
+        .grid { 
+    display: grid; 
+    grid-template-columns: repeat(3, 1fr); 
+    gap: 10px; 
+    max-width: 700px; 
+    margin: 15px auto; 
+    width: 100%;
+    justify-content: center; /* Centers the grid container */
+    justify-items: stretch;  /* Ensures tiles fill their space */
+}
+        .row-fixed { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; max-width: 500px; margin: 15px auto; width: 100%; }
+
+        .clue { font-size: 1.1rem; margin: 8px 0; background: rgba(255,255,255,0.08); padding: 12px; border-radius: 12px; text-align: left; border-left: 4px solid #fff; }
+        .saying-text { font-size: 2.2rem; font-weight: 800; margin: 20px 0; }
+        .date-clue { font-size: 4.5rem; font-weight: 800; margin-bottom: 10px; }
+        .answer { margin: 15px 0; font-size: 1.4rem; color: #f1c40f; font-weight: 600; min-height: 30px; }
+        .score-display { font-weight: 800; color: #2ecc71; font-size: 1.2rem; margin-bottom: 10px; }
+
+        #gameArea { width: 100%; max-width: 800px; padding-bottom: 80px; }
+
+        .footer {
+            position: fixed;
+            bottom: 0; width: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            padding: 10px; font-size: 11px;
+            border-top: 1px solid rgba(255,255,255,0.1);
+        }
+
+@media (max-width: 600px) {
+    /* Force 3 columns for The Wall and other grids */
+    .grid { 
+        grid-template-columns: repeat(3, 1fr); 
+        gap: 8px; /* Slightly tighter for small screens */
+    }
+
+    /* For the "Odd One Out" or 2-column layouts */
+    .row-fixed { 
+        grid-template-columns: repeat(2, 1fr); 
+}
+       #musicControls {
+        top: 10px !important;
+        right: 10px !important;
+    }
+
+    /* This is the secret sauce: 
+       If the last row has only 1 tile, it spans the full width or 
+       stays centered depending on your preference. 
+       To keep it centered, we apply this to the container: */
+#gameArea .grid {
+        display: grid !important; /* Force grid instead of flex */
+        grid-template-columns: repeat(3, 1fr); /* Stay 3 columns */
+        justify-items: center; 
+        align-items: center;
+        width: 100%;
+    }
+
+    /* Adjust tile width for mobile grid */
+    #gameArea .tile {
+        width: 100%; /* Tiles fill the grid cell */
+        margin: 0;   /* Let the grid gap handle spacing */
+    }
+}
+    </style>
+</head>
+<body class="bg-menu">
+
+<!-- Background Music Element -->
+<audio id="bgMusic" loop>
+    <source src="music.mp3" type="audio/mpeg">
+    Your browser does not support the audio element.
+</audio>
+
+<h1 id="title">PLAY WITH ENGLISH</h1>
+<div id="subtitle" class="subtitle">
+    Interactive English learning games.
+    Language, intuition, and logic.
+</div>
+
+<div id="gameContainer">
+    <div id="menu">
+        <button class="btn-wall" onclick="startGame('wall')">The Wall</button>
+        <button class="btn-connection" onclick="startGame('connection')">Connections</button>
+        <button class="btn-date" onclick="startGame('date')">Chronology</button>
+        <button class="btn-odd" onclick="startGame('odd')">Odd One Out</button>
+        <button class="btn-sayings" onclick="startGame('sayings')">English Sayings</button>
+        
+ <div class="home-footer-content">
+    <a href="https://wa.me/393515316723" target="_blank" class="logo-glow-link">
+        <div class="wa-container">
+            <img src="logo.png" class="logo-small" alt="Logo">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" class="wa-icon" alt="WhatsApp">
+        </div>
+    </a>
+    <a href="help.html" target="_blank" class="btn-dark">INSTRUCTIONS</a>
+    
+    <!-- SUBTLE ITALIAN LINK -->
+
+<a href="https://jiwynne72-tech.github.io/english_games_italian/" 
+   style="font-size: 10px; text-decoration: underline; font-family: 'Montserrat', sans-serif; letter-spacing: 1px; margin-top: -5px; text-transform: uppercase;"><span style="color: #009246;">V</span><span style="color: #FFFFFF;">E</span><span style="color: #009246;">RSION</span><span style="color: #FFFFFF;">E ITA</span><span style="color: #CE2B37;">LIANA</span></a>
+
+    <button id="musicBtn" class="btn-ui" onclick="toggleMusic()" title="Play music" style="margin-top: 10px; width: 40px; height: 40px; font-size: 16px;">
+        🔇
+    </button>
+
+<div class="demo-note">
+              This is a <strong>First Edition</strong>. The full version includes many more activities, advanced features, and additional modules! <br><strong>Contact me for info.</strong> </div>
+        </div>
+    </div>
+    <div id="gameArea"></div>
+</div>
+
+<script>
+
+
+function revealWall() {
+    if(window.wallTimer) clearInterval(window.wallTimer);
+    playSound("reveal");
+    const colors = ['#2ecc71', '#3498db', '#9b59b2']; // Green, Blue, Purple
+    
+    let html = `<div class="grid">`;
+    
+    // Step 1: Just show the colored tiles
+    window.currentWall.groups.forEach((group, index) => {
+        group.forEach(word => {
+            html += `<div class="tile" style="background:${colors[index]} !important; border:none;">${word}</div>`;
+        });
+    });
+    
+    html += `</div>`;
+    
+    // Step 2: Show the middle-man button
+    html += `<div id="connectionContainer" style="margin-top:20px;">
+                <button class="btn-wall" style="background:#f1c40f; color:#000;" onclick="revealLabels()">What Connects The Clues?</button>
+             </div>`;
+
+    // Step 3: Container for labels (initially empty)
+    html += `<div id="labelsArea" style="margin-top:20px;"></div>`;
+    
+    html += `<div id="navigationButtons" style="display:none; margin-top:20px;">
+                <button class="btn-ui" onclick="startGame('wall')">Next Puzzle</button>
+                <button class="btn-ui" onclick="showMenu()">⬅ Home</button>
+             </div>`;
+             
+    document.getElementById("gameArea").innerHTML = html;
+}
+
+
+function toggleMusic() {
+    const music = document.getElementById("bgMusic");
+    const btn = document.getElementById("musicBtn");
+
+    if (music.paused) {
+        music.play().catch(error => {
+            console.log("Playback failed. Interaction needed first.");
+        });
+        btn.innerHTML = "🔊"; // "On" Icon
+        btn.title = "Stop music"; // Update tooltip
+        btn.classList.add("music-on");
+    } else {
+        music.pause();
+        btn.innerHTML = "🔇"; // "Off" Icon
+        btn.title = "Play music"; // Reset tooltip
+        btn.classList.remove("music-on");
+    }
+}
+
+
+
+function revealLabels() {
+    playSound("correct");
+    const colors = ['#2ecc71', '#3498db', '#9b59b2'];
+    let html = "";
+    
+    // Reveal the actual categories
+    window.currentWall.labels.forEach((label, index) => {
+        html += `<div class="clue" style="border-left-color:${colors[index]}"><strong>Group ${index + 1}:</strong> ${label}</div>`;
+    });
+    
+    document.getElementById("labelsArea").innerHTML = html;
+    
+    // Hide the question button and show the Home/Next buttons
+    document.getElementById("connectionContainer").style.display = "none";
+    document.getElementById("navigationButtons").style.display = "block";
+}
+
+const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+function playSound(type) {
+    // This line "wakes up" the sound if the browser blocked it
+    if (audioCtx.state === 'suspended') {
+        audioCtx.resume();
+    }
+
+    let osc = audioCtx.createOscillator();
+    let gain = audioCtx.createGain();
+    osc.connect(gain); 
+    gain.connect(audioCtx.destination);
+
+    // Set sounds based on action
+    if (type === "correct") {
+        osc.frequency.setValueAtTime(650, audioCtx.currentTime);
+        osc.frequency.exponentialRampToValueAtTime(900, audioCtx.currentTime + 0.1);
+    } else if (type === "wrong") {
+        osc.frequency.setValueAtTime(150, audioCtx.currentTime);
+        osc.frequency.exponentialRampToValueAtTime(100, audioCtx.currentTime + 0.2);
+    } else if (type === "reveal") {
+        osc.frequency.setValueAtTime(440, audioCtx.currentTime);
+        osc.frequency.exponentialRampToValueAtTime(880, audioCtx.currentTime + 0.1);
+    } else {
+        osc.frequency.value = 400; // Default click
+    }
+
+    osc.start(); 
+    gain.gain.exponentialRampToValueAtTime(0.0001, audioCtx.currentTime + 0.3);
+    osc.stop(audioCtx.currentTime + 0.3);
+}
+
+// --- DATA ---
+const wallData = [
+  { groups: [["look after","give up","find out"], ["money","price","cost"], ["quickly","slowly","carefully"]], labels: ["phrasal verbs","money","adverbs"] },
+  { groups: [["teacher","student","principal"],["pen","chalk","board"],["classroom","lesson","homework"]], labels: ["school roles","teaching tools","school context"] },
+  { groups: [["raincoat","umbrella","boots"],["sunhat","sunglasses","shorts"],["scarf","gloves","coat"]], labels: ["rain gear","summer wear","winter wear"] },
+  { groups: [["doctor","hospital","patient"],["chef","restaurant","menu"],["pilot","airport","flight"]], labels: ["medical","food service","aviation"] },
+  { groups: [["clef","staff","measure"], ["judge","jury","witness"], ["trunk","duffel","valise"]], labels: ["Music Notation","Trial Participants","Types of Baggage"] },
+  { groups: [["yen","euro","peso"], ["ounce","stone","gram"], ["kennel","manger","coop"]], labels: ["World Currencies","Units of Weight","Animal Enclosures"] },
+  { groups: [["apple","banana","orange"], ["table","chair","desk"], ["yellow","green","blue"]], labels: ["Fruits","Furniture","Colors"] },
+  { groups: [["milk","juice","water"], ["bread","rice","pasta"], ["cup","plate","bowl"]], labels: ["Drinks","Carbohydrates","Kitchenware"] },
+  { groups: [["cat","dog","rabbit"], ["lion","tiger","bear"], ["shirt","pants","jacket"]], labels: ["Pets","Wild Animals","Clothes"] },
+  { groups: [["run","walk","jump"], ["see","hear","smell"], ["pen","pencil","marker"]], labels: ["Actions/Verbs","Senses","Writing Tools"] },
+  { groups: [["sun","moon","star"], ["rain","snow","wind"], ["hot","cold","warm"]], labels: ["Space","Weather","Temperatures"] },
+  { groups: [["gale","zephyr","draft"], ["check","deposit","bank"], ["creek","brook","stream"]], labels: ["Types of Wind","Banking Terms","Small Waterways"] },
+  { groups: [["gavel","docket","brief"], ["racket","net","court"], ["volume","tempo","pitch"]], labels: ["Legal System","Tennis Elements","Musical Attributes"] },
+  { groups: [["woofer","tweeter","amp"], ["lectern","podium","rostrum"], ["iron","copper","lead"]], labels: ["Audio Equipment","Public Speaking","Base Metals"] },
+  { groups: [["doctor","nurse","dentist"], ["pilot","driver","captain"], ["head","arm","leg"]], labels: ["Medical Jobs","Transport Jobs","Body Parts"] },
+  { groups: [["piano","guitar","drums"], ["sad","happy","angry"], ["one","ten","hundred"]], labels: ["Instruments","Emotions","Numbers"] },
+  { groups: [["bus","train","plane"], ["car","bike","truck"], ["book","comic","novel"]], labels: ["Public Transport","Private Transport","Things to Read"] },
+  { groups: [["soccer","tennis","golf"], ["math","history","science"], ["winter","spring","summer"]], labels: ["Sports with Balls","School Subjects","Seasons"] },
+  { groups: [["father","sister","uncle"], ["chef","waiter","baker"], ["phone","laptop","tablet"]], labels: ["Family Members","Food Jobs","Technology"] },
+  { groups: [["stork","heron","egret"], ["hoist","derrick","lift"], ["emblem","crest","insignia"]], labels: ["Long-necked Birds","Lifting Machinery","Symbols of Authority"] },
+  { groups: [["badger","otter","shrew"], ["asset","handler","sleeper"], ["cursor","key","monitor"]], labels: ["Small Mammals","Espionage Terms","Computer Peripherals"] },
+  { groups: [["crate","bin","chest"], ["spar","jab","hook"], ["bangle","locket","pendant"]], labels: ["Storage Containers","Boxing Actions","Necklace/Arm Jewelry"] },
+  { groups: [["stern","hull","deck"], ["arrow","quiver","target"], ["bridge","fret","string"]], labels: ["Nautical Parts","Archery Equipment","Lute/Guitar Anatomy"] },
+  { groups: [["flint","tinder","wick"], ["bout","heat","fixture"], ["minute","era","decade"]], labels: ["Fire Starting","Sporting Events","Periods of Time"] },
+  { groups: [["walk","hike","stroll"], ["yell","whisper","chat"], ["look","glance","stare"]], labels: ["ways to move","ways to speak","ways to see"] }
+];
+
+const connectionData = [
+  { clues: ["You use it every day", "It helps you communicate", "It changes depending on context", "It can be formal or informal"], answer: "Language" },
+  { clues: ["It happens every 4 years", "Athletes from all over", "Gold, Silver, and Bronze", "The five rings"], answer: "The Olympic Games" },
+  { clues: ["It has a face", "It has two hands", "It doesn't have a body", "It tells you the time"], answer: "A Clock" },
+  { clues: ["It has a tongue but cannot speak", "It has a soul (sole) but no spirit", "It has eyes but cannot see", "You use it to go for a walk"], answer: "A Shoe" },
+  { clues: ["It can be broken without being touched", "You can keep it but you can't give it back", "If you share it, you have failed to keep it", "A spoken assurance or oath"], answer: "A Promise" },
+  { clues: ["It can be made, but never seen", "It can be caught, but never thrown", "It can be heard, but never touched", "A vibration that travels through the air"], answer: "Sound" },
+  { clues: ["It is tallest when it is young", "It gets shorter as it gets older", "It glows in the dark", "It provides light by melting"], answer: "A Candle" },
+  { clues: ["It has many keys but no locks", "It has a space but no room", "You can enter but you can never leave", "A device used for typing"], answer: "A Keyboard" },
+  { clues: ["It is always in front of you", "You can never catch up to it", "It is the day after today", "The future"], answer: "Tomorrow" },
+  { clues: ["It has cities but no houses", "It has mountains but no trees", "It has water but no fish", "A visual representation of an area"], answer: "A Map" },
+  { clues: ["It grows only downwards", "It is made of frozen water", "It hangs from the edge of a roof", "A spike of ice"], answer: "An Icicle" },
+  { clues: ["It travels around the world", "It stays in one corner", "It is needed to send a letter", "A small adhesive piece of paper"], answer: "A Postage Stamp" },
+  { clues: ["It has a spine but no bones", "It has leaves but no tree", "It has a cover but no bed", "Something you read"], answer: "A Book" },
+  { clues: ["It whistles but has no mouth", "It runs but has no legs", "You feel it but can't see it", "Moving air"], answer: "The Wind" }
+];
+
+const dateData = [
+  { date: "1989", options: ["Fall of the Berlin Wall", "World War II begins", "First iPhone released"], answer: "Fall of the Berlin Wall" },
+  { date: "1969", options: ["Moon Landing", "First Airplane Flight", "End of WWI"], answer: "Moon Landing" },
+  { date: "1912", options: ["Sinking of the Titanic", "Discovery of America", "First Man in Space"], answer: "Sinking of the Titanic" },
+  { date: "2007", options: ["First iPhone released", "Start of the Internet", "Fall of the Berlin Wall"], answer: "First iPhone released" },
+  { date: "1945", options: ["End of World War II", "Start of the French Revolution", "Invention of the Telephone"], answer: "End of World War II" },
+  { date: "1876", options: ["Invention of the Telephone", "First Wright Brothers Flight", "Discovery of Penicillin"], answer: "Invention of the Telephone" },
+  { date: "1903", options: ["First Airplane Flight", "First Steam Engine", "End of the Vietnam War"], answer: "First Airplane Flight" },
+  { date: "1928", options: ["Discovery of Penicillin", "Invention of the Lightbulb", "First Walk on the Moon"], answer: "Discovery of Penicillin" },
+  { date: "1789", options: ["French Revolution begins", "American Civil War", "World War I begins"], answer: "French Revolution begins" },
+  { date: "1991", options: ["End of the Soviet Union", "Invention of the Radio", "First Olympic Games"], answer: "End of the Soviet Union" },
+  { date: "1885", options: ["First Modern Car", "First Laptop Computer", "Discovery of Australia"], answer: "First Modern Car" },
+  { date: "1953", options: ["DNA Structure Discovered", "Invention of Printing Press", "First Social Media Site"], answer: "DNA Structure Discovered" },
+  { date: "1492", options: ["Columbus reaches America", "French Revolution", "Black Death ends"], answer: "Columbus reaches America" },
+  { date: "1914", options: ["Start of WWI", "Start of WWII", "Vietnam War begins"], answer: "Start of WWI" },
+  { date: "1963", options: ["JFK Assassination", "Birth of George Clooney", "Sandro Pertini is President"], answer: "JFK Assassination" }
+];
+
+const oddData = [
+    { options: ["Be","Have","Do","Go"], answer: "Go", reason: "The others are auxiliary verbs." },
+    { options: ["Bridge","Tunnel","Road","Harbour"], answer: "Harbour", reason: "The others are land transport structures." },
+    { options: ["Speak","Write","Listen","Read"], answer: "Listen", reason: "The others are 'productive' skills (you produce language), while listening is 'receptive'." },
+    { options: ["Happiness","Sadness","Angry","Excitement"], answer: "Angry", reason: "The others are nouns; 'Angry' is an adjective." },
+    { options: ["Beautifully","Slowly","Quickly","Friendly"], answer: "Friendly", reason: "The others are adverbs; 'Friendly' is an adjective." },
+    { options: ["Table","Desk","Wardrobe","Kitchen"], answer: "Kitchen", reason: "The others are pieces of furniture; a kitchen is a room." },
+    { options: ["Teacher","Doctor","Student","Lawyer"], answer: "Student", reason: "The others are professions/jobs; a student is a learner." },
+    { options: ["Bought","Caught","Taught","Walked"], answer: "Walked", reason: "The others are irregular verbs; 'Walked' is a regular verb." },
+    { options: ["Always","Usually","Sometimes","Tomorrow"], answer: "Tomorrow", reason: "The others are adverbs of frequency; 'Tomorrow' is an adverb of time." },
+    { options: ["See","Look","Watch","Hear"], answer: "Hear", reason: "The others are related to the sense of sight; 'Hear' is related to sound." },
+    { options: ["Paris","London","Italy","Tokyo"], answer: "Italy", reason: "The others are cities; Italy is a country." },
+    { options: ["Must","Can","Should","Want"], answer: "Want", reason: "The others are modal verbs; 'Want' is a main verb." },
+    { options: ["Whale","Bat","Penguin","Human"], answer: "Penguin", reason: "The others are mammals; a penguin is a bird." },
+    { options: ["Salt","Sugar","Vinegar","Lemon"], answer: "Sugar", reason: "The others are used for savory or sour seasoning." },
+    { options: ["Glass","Ice","Steam","Water"], answer: "Glass", reason: "The others are states of H2O." },
+    { options: ["Eye","Ear","Nose","Hand"], answer: "Hand", reason: "The others are sensory organs located on the face." }
+];
+
+const sayingsData = [
+  { phrase: "Break the ice", meaning: "To start a conversation or socialize in a tense situation." },
+  { phrase: "Spill the beans", meaning: "To reveal a secret accidentally." },
+  { phrase: "Kick the bucket", meaning: "A humorous or informal way to say someone has died." },
+  { phrase: "Hit the sack", meaning: "To go to bed or go to sleep." },
+  { phrase: "Piece of cake", meaning: "Something that is very easy to do." },
+  { phrase: "Under the weather", meaning: "Feeling sick or not well." },
+  { phrase: "Break a leg", meaning: "A superstitious way to say 'good luck', usually to a performer." },
+  { phrase: "Once in a blue moon", meaning: "Something that happens very rarely." },
+  { phrase: "Costs an arm and a leg", meaning: "Something that is very expensive." },
+  { phrase: "Let the cat out of the bag", meaning: "To accidentally reveal a secret." },
+  { phrase: "Bite off more than you can chew", meaning: "To take on a task that is way too big or difficult." },
+  { phrase: "When pigs fly", meaning: "Something that will never happen; an impossibility." },
+  { phrase: "The last straw", meaning: "The final problem in a series of problems that makes you lose your patience." },
+  { phrase: "In the same boat", meaning: "To be in the same difficult situation as someone else." },
+  { phrase: "Penny for your thoughts", meaning: "A way to ask someone what they are thinking about." }
+];
+
+function showMenu(){
+    // Stop any active game timers
+    if(window.wallTimer) clearInterval(window.wallTimer);
+    if(window.connTimer) clearInterval(window.connTimer);
+
+    // Reset the visual theme and text
+    document.body.className = "bg-menu";
+    document.getElementById("title").innerText="PLAY WITH ENGLISH";
+    document.getElementById("subtitle").innerText = "Interactive English learning games.\nLanguage, intuition, and logic.";
+    document.getElementById("gameArea").innerHTML = "";
+
+    // The entire menu HTML is wrapped in one set of backticks
+    document.getElementById("menu").innerHTML = `
+        <button class="btn-wall" onclick="startGame('wall')">The Wall</button>
+        <button class="btn-connection" onclick="startGame('connection')">Connections</button>
+        <button class="btn-date" onclick="startGame('date')">Chronology</button>
+        <button class="btn-odd" onclick="startGame('odd')">Odd One Out</button>
+        <button class="btn-sayings" onclick="startGame('sayings')">English Sayings</button>
+        
+        <div class="home-footer-content">
+            <a href="https://wa.me/393515316723" target="_blank" class="logo-glow-link">
+                <div class="wa-container">
+                    <img src="logo.png" class="logo-small" alt="Logo">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" class="wa-icon" alt="WhatsApp">
+                </div>
+            </a>
+            <a href="help.html" target="_blank" class="btn-dark">INSTRUCTIONS</a>
             
             <a href="https://jiwynne72-tech.github.io/english_games_italian/" 
                style="font-size: 10px; text-decoration: none; color: rgba(255,255,255,0.4); font-family: 'Montserrat', sans-serif; letter-spacing: 1px; margin-top: -5px; text-transform: uppercase;">
                Versione Italiana
             </a>
+
+            <button id="installBtn" class="btn-ui" style="display:none; background:#2ecc71; margin-top:5px; width: auto; font-size: 12px; padding: 10px 20px;" onclick="triggerInstall()">
+                📥 INSTALL APP
+            </button>
+
+            <button id="musicBtn" class="btn-ui" onclick="toggleMusic()" title="Play music" style="margin-top: 10px; width: 40px; height: 40px; font-size: 16px;">
+                🔇
+            </button>
+
+            <div class="demo-note">
+                This is a <strong>Demo Edition</strong>. The full version includes many more activities such as Conditionals, True or False, Reading Comprehension, The Big Wall, Correction Center, Who Am I?... and much more! <br><strong>Contact me for info.</strong>
+            </div>
+        </div>
+    `;
+
+    // Re-check if the Install Button should be visible
+    if (deferredPrompt) {
+        document.getElementById('installBtn').style.display = 'inline-block';
+    }
+}
+
+
+
+
+function startGame(type){
+    const music = document.getElementById("bgMusic");
+    if (!music.paused) toggleMusic();
+    if(window.wallTimer) clearInterval(window.wallTimer);
+    if(window.connTimer) clearInterval(window.connTimer);
+    playSound("click");
+    document.getElementById("menu").innerHTML=""; 
+    document.getElementById("gameArea").innerHTML="";
+    
+    // Get the subtitle element
+    const subtitle = document.getElementById("subtitle");
+
+    if(type==="wall") { 
+        document.body.className="bg-wall"; 
+        document.getElementById("title").innerText="THE WALL"; 
+        subtitle.innerText = "Find the three hidden groups and their connections.\nThink outside the box.";
+        loadWall(); 
+    }
+    if(type==="connection") { 
+        document.body.className="bg-connection"; 
+        document.getElementById("title").innerText="CONNECTIONS"; 
+        subtitle.innerText = "Solve the puzzle with as few clues as possible.\nAccuracy earns points.";
+        loadConnection(); 
+    }
+    if(type==="date") { 
+        document.body.className="bg-date"; 
+        document.getElementById("title").innerText="CHRONOLOGY"; 
+        subtitle.innerText = "Place historical events in the correct year.\nA test of time and memory.";
+        loadDate(); 
+    }
+    if(type==="odd") { 
+        document.body.className="bg-odd"; 
+        document.getElementById("title").innerText="ODD ONE OUT"; 
+        subtitle.innerText = "Three belong, one does not.\nWhich one goes home?";
+        loadOdd(); 
+    }
+    if(type==="sayings") { 
+        document.body.className="bg-sayings"; 
+        document.getElementById("title").innerText="ENGLISH SAYINGS"; 
+        subtitle.innerText = "Master the world of idioms.\nDecipher the true meaning.";
+        loadSayings(); 
+    }
+}
+
+// CONNECTIONS SCORING LOGIC
+function loadConnection(){
+    let newSet;
+    do {
+        newSet = connectionData[Math.floor(Math.random() * connectionData.length)];
+    } while (newSet === window.currentSet && connectionData.length > 1);
+
+    window.clueIdx = 0; 
+    window.currentSet = newSet;
+    window.currentScore = 10;
+    window.connTimeLeft = 60; // Logic for the timer
+
+    document.getElementById("gameArea").innerHTML = `
+    <div id="score" class="score-display">Potential Score: 10</div>
+    <div id="clueBox" style="min-height:180px"></div>
+    <button class="btn-connection" onclick="nextClue()">Next Clue</button>
+    <button class="btn-connection" onclick="revealConnection()">Show Answer</button>
+    <div id="cAns" class="answer"></div>
+    
+    <div class="timer-container">
+        <div id="connectionTimerBar" class="timer-bar" style="background: #2ecc71 !important; width: 100%;"></div>
+    </div>
+
+    <div style="margin-top:10px">
+        <button class="btn-ui" onclick="startGame('connection')">Next Puzzle</button>
+        <button class="btn-ui" onclick="showMenu()">⬅ Home</button>
+    </div>`;
+    
+    // START THE TIMER
+    if(window.connTimer) clearInterval(window.connTimer);
+    const connBar = document.getElementById("connectionTimerBar");
+    window.connTimer = setInterval(() => {
+        window.connTimeLeft--;
+        let percentage = (window.connTimeLeft / 60) * 100;
+        connBar.style.width = percentage + "%";
+        
+        if(window.connTimeLeft <= 0) {
+            clearInterval(window.connTimer);
+            revealConnection(true); 
+        }
+    }, 1000);
+
+    nextClue();
+}
+
+
+function revealConnection(isTimeUp = false) {
+    // Stop the timer immediately
+    if(window.connTimer) clearInterval(window.connTimer);
+    playSound("reveal");
+
+    // 1. Calculate the final score
+    let timeBonus = Math.floor(window.connTimeLeft / 10);
+    let finalScore = isTimeUp ? 0 : (window.currentScore + timeBonus);
+
+    // 2. REPLACE the "Potential Score" with "Final Score"
+    const scoreDisplay = document.getElementById("score");
+    scoreDisplay.innerHTML = `Final Score: ${finalScore}`;
+    scoreDisplay.style.color = isTimeUp ? "#e74c3c" : "#2ecc71"; // Red if time up, Green if win
+
+    // 3. Show the answer in the answer box
+    const ansDisplay = document.getElementById("cAns");
+    if (isTimeUp) {
+        ansDisplay.innerHTML = `<span style="color:#e74c3c">TIME'S UP!</span><br>
+                                <span style="color:#fff">${window.currentSet.answer}</span>`;
+    } else {
+        ansDisplay.innerHTML = `<span style="color:#fff">${window.currentSet.answer}</span>`;
+    }
+}
+
+function nextClue(){
+    if(window.clueIdx < window.currentSet.clues.length){
+        if(window.clueIdx > 0) window.currentScore -= 2;
+        document.getElementById("score").innerText = `Potential Score: ${window.currentScore}`;
+        let div = document.createElement("div");
+        div.className = "clue";
+        div.innerText = window.currentSet.clues[window.clueIdx];
+        document.getElementById("clueBox").appendChild(div);
+        window.clueIdx++;
+    }
+}
+
+// ODD ONE OUT EXPLANATION LOGIC
+function loadOdd(){
+    let set = oddData[Math.floor(Math.random()*oddData.length)];
+    let opts = [...set.options].sort(()=>Math.random()-0.5);
+    let html = `<div class="row-fixed">`;
+    // We pass 'this' to evalAns so the function knows which tile was clicked
+    opts.forEach(o => { 
+    html += `<div class="tile" onclick="evalAns(this,'${o.replace(/'/g,"\\'")}','${set.answer.replace(/'/g,"\\' text-decoration: none;")}')">${o}</div>`; 
+});
+    html += `</div>
+        <div id="oddAns" class="answer"></div>
+        <!-- Added id="revealBtn" and disabled attribute -->
+        <button id="revealBtn" class="btn-odd" disabled onclick="revealOdd('${set.answer.replace(/'/g,"\\'")}', '${set.reason.replace(/'/g,"\\'")}')">Answer & Explanation</button>
+        <br><br>
+        <button class="btn-ui" onclick="startGame('odd')">Next Puzzle</button>
+        <button class="btn-ui" onclick="showMenu()">⬅ Home</button>`;
+    document.getElementById("gameArea").innerHTML = html;
+}
+
+function revealOdd(ans, reason){
+    playSound("reveal");
+    document.getElementById("oddAns").innerHTML = `<span style="color:#fff; font-size:1.6rem; font-weight:800">${ans}</span><br><small style="font-size:1.1rem; font-weight:400; opacity:0.9;">${reason}</small>`;
+}
+
+// COMMON HELPERS
+function evalAns(el, choice, correct){ 
+    if(choice === correct) { 
+        playSound("correct"); 
+        el.classList.add("correct"); 
+    } else { 
+        playSound("wrong"); 
+        el.classList.add("wrong"); 
+    } 
+
+    // Enable the "Answer & Explanation" button if it exists on screen
+    const revealBtn = document.getElementById("revealBtn");
+    if(revealBtn) {
+        revealBtn.disabled = false;
+        revealBtn.style.opacity = "1"; // Optional: ensures it looks active
+        revealBtn.style.cursor = "pointer";
+    }
+}
+
+// MINIMAL WALL / DATE / SAYINGS (To keep code clean but functional)
+function loadWall(){
+    if(window.wallTimer) clearInterval(window.wallTimer);
+
+    let set = wallData[Math.floor(Math.random() * wallData.length)]; 
+    let tiles = set.groups.flat().sort(() => Math.random() - 0.5);
+    
+    let html = `<div class="grid">`;
+    tiles.forEach(t => { html += `<div class="tile" onclick="selectTile(this,'${t.replace(/'/g,"\\'")}')">${t}</div>`; });
+    html += `</div>
+        <div style="margin-top:10px;">
+        <button class="btn-wall" style="background:rgba(255,255,255,0.2)" onclick="revealWall()">Reveal All</button>
+        </div>
+        <div style="margin-top:10px;">
+            <button class="btn-ui" onclick="startGame('wall')">Next Wall</button>
+            <button class="btn-ui" onclick="showMenu()">⬅ Home</button>
+        </div>
+        
+        <!-- Progress Timer Bar -->
+        <div class="timer-container">
+            <div id="wallTimerBar" class="timer-bar"></div>
+        </div>
+        
+        <!-- NEW TEXT PLACEMENT -->
+        <div style="margin-top: 10px; font-style: italic; font-size: 0.9rem; color: rgba(255,255,255,0.7);">
+            Too easy? Too difficult? Click "Next" for a new wall...
+        </div>`;
+        
+    document.getElementById("gameArea").innerHTML = html; 
+    window.currentWall = set; 
+    window.selectedTiles = [];
+    
+    let timeLeft = 60;
+    const timerBar = document.getElementById("wallTimerBar");
+    window.wallTimer = setInterval(() => {
+        timeLeft--;
+        let percentage = (timeLeft / 60) * 100;
+        timerBar.style.width = percentage + "%";
+        
+        if(timeLeft <= 0) {
+            clearInterval(window.wallTimer);
+            document.querySelectorAll(".tile").forEach(t => {
+                t.style.pointerEvents = "none"; 
+                t.style.opacity = "0.7";
+            });
+            document.getElementById("title").innerText = "TIME EXPIRED";
+        }
+    }, 1000);
+} 
+
+
+function selectTile(el, word){ 
+    // Prevent selection if time is up or already solved
+    if(document.getElementById("wallTimerBar") && 
+       document.getElementById("wallTimerBar").style.width === "0%") return;
+    if(el.classList.contains("correct") || el.classList.contains("wrong") || el.classList.contains("selected")) return;
+
+    if(window.selectedTiles.length < 3){ 
+        el.classList.add("selected"); 
+        window.selectedTiles.push(word); 
+        
+        if(window.selectedTiles.length === 3) {
+            checkWallGroup();
+        }
+    }
+}
+
+function checkWallGroup(){
+    let correct = window.currentWall.groups.find(g => g.every(w => window.selectedTiles.includes(w)));
+    let selectedElements = document.querySelectorAll(".selected");
+
+    if(correct) { 
+        playSound("correct"); 
+        selectedElements.forEach(t => {
+            t.classList.remove("selected");
+            t.classList.add("correct");
+        });
+        window.selectedTiles = []; 
+    } else { 
+        playSound("wrong"); 
+        // Briefly turn red
+        selectedElements.forEach(t => {
+            t.classList.remove("selected");
+            t.classList.add("wrong");
+        });
+
+        // Remove red after 500ms so user can continue
+        setTimeout(() => {
+            document.querySelectorAll(".wrong").forEach(t => {
+                t.classList.remove("wrong");
+            });
+            window.selectedTiles = []; 
+        }, 500); 
+    }
+}
+
+function loadDate(){
+    // Pick a random date from the array
+    let set = dateData[Math.floor(Math.random() * dateData.length)];
+    
+    // Shuffle the options so the answer isn't always in the same spot
+    let shuffledOptions = [...set.options].sort(() => Math.random() - 0.5);
+
+    let html = `
+        <div class="date-clue">${set.date}</div>
+        <div class="grid">`;
+    
+    shuffledOptions.forEach(o => { 
+        // We escape apostrophes to prevent JavaScript errors in names/titles
+        html += `<div class="tile" onclick="evalAns(this,'${o.replace(/'/g,"\\'")}','${set.answer.replace(/'/g,"\\'")}')">${o}</div>`; 
+    });
+
+    html += `</div>
+        <div style="margin-top:20px;">
+            <button class="btn-ui" onclick="startGame('date')">Next Date</button>
+            <button class="btn-ui" onclick="showMenu()">⬅ Home</button>
+        </div>`;
+        
+    document.getElementById("gameArea").innerHTML = html;
+}
+
+
+function loadSayings(){
+    // Pick a random saying
+    let set = sayingsData[Math.floor(Math.random() * sayingsData.length)];
+    
+    // Build the full interface at once
+    document.getElementById("gameArea").innerHTML = `
+        <div class="saying-text">"${set.phrase}"</div>
+        <div id="sAns" class="answer" style="min-height: 50px; margin-bottom: 20px;"></div>
+        
+        <div style="margin-bottom: 20px;">
+            <button class="btn-sayings" onclick="document.getElementById('sAns').innerText='${set.meaning.replace(/'/g,"\\'")}'">Meaning</button>
+        </div>
+
+        <div style="margin-top:10px">
+            <button class="btn-ui" onclick="startGame('sayings')">Next Saying</button>
+            <button class="btn-ui" onclick="showMenu()">⬅ Home</button>
+        </div>`;
+}
+
+</script>
+
+<footer class="footer">
+    © 2026 James Wynne | 
+    <a href="https://jwynne.wixsite.com/english" style="color:#00d2ff; text-decoration:none;" target="_blank">website</a> | 
+    <a href="mailto:james_wynne@hotmail.com?subject=JW%20English:%20Request%20for%20Information" style="color:#00d2ff; text-decoration:none;">email</a>
+</footer>
+
+<script>
+
+let deferredPrompt;
+
+// 1. Listen for the browser's "ready to install" signal
+window.addEventListener('beforeinstallprompt', (e) => {
+    e.preventDefault();
+    deferredPrompt = e;
+    // Show the button if we are on the menu
+    const installBtn = document.getElementById('installBtn');
+    if (installBtn) installBtn.style.display = 'inline-block';
+});
+
+// 2. The function the button calls
+function triggerInstall() {
+    if (!deferredPrompt) return;
+    deferredPrompt.prompt();
+    deferredPrompt.userChoice.then((choiceResult) => {
+        deferredPrompt = null;
+        const installBtn = document.getElementById('installBtn');
+        if (installBtn) installBtn.style.display = 'none';
+    });
+}
+
+// 3. Listen for successful installation
+window.addEventListener('appinstalled', () => {
+    deferredPrompt = null;
+    const installBtn = document.getElementById('installBtn');
+    if (installBtn) installBtn.style.display = 'none';
+});
+
+
+  if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.register('./sw.js')
+      .then(() => console.log("Service Worker Registered"));
+  }
+</script>
+</body>
+</html>
 
             <button id="installBtn" class="btn-ui" style="display:none; background:#2ecc71; margin-top:5px; width: auto; font-size: 12px; padding: 10px 20px;" onclick="triggerInstall()">
                 📥 INSTALL APP
